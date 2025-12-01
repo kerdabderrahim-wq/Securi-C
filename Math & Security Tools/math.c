@@ -131,8 +131,7 @@ int sumDigits(int n){
     while (n>0)
     {
         current_dig=n%10;
-        sum_dig = sum_dig +current_dig 
-        ;
+        sum_dig = sum_dig +current_dig;
         n=n/10;
     }
     return sum_dig;
@@ -387,14 +386,11 @@ int main(){
     printf("hello");
     scanf("%d",&n);
     scanf("%d",&t);
-    scanf("%d",&k);
+    //scanf("%d",&k);
     //scanf("%d",&t);
-    printf("%d",factorial(n));
-    //arr[]={99098,3,4,5,6,78,9,0,7,45,4};
-    //sortAscending(arr,11);
-    //for ( i = 0; i <11; i++)
-    // //   printf("%d,",arr[i]);
-    //}
+    printf("%f8",randomNumber(n,t));
+    //arr[]={9098,3,4,5,6,78,9,0,7,45,4};
+    //sortAscending(arr,11);a
     
     //printf("%d",minArray(arr,11));
     return 0;
