@@ -276,6 +276,21 @@ int compareMessages(struct Message m1, struct Message m2){
     return (isequal);
 }
 int countCharacter(struct Message m, char c){
+    int i,count_char;
+    for(i=0;i<m.length;i++){
+        if (m.text[i]==c)
+        {
+            
+        }
+        
+        count_char=count_char+1;
+
+    }
+    if (count_char!=0)
+    {
+        
+    }
+    
     
 }
 int main(){
