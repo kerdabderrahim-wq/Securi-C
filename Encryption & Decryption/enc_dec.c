@@ -106,11 +106,120 @@ void removeSpaces(struct Message *m){
     *m=s;
 
 }
+//10
+// description: function to encrypt a message using a Caesar cipher
+// input : a Message struct and an integer key
+// output : none (the function modifies the struct in place)
 
+void encryptCesar(struct Message *m, int key){
+    int i;
+    for ( i = 0; i < m->length; i++){
+        //there is a different between uppercase and lowr case in ASCII
+        if (isUppercase(m->text[i])){
+            //there is 26 letter so we use MOD 26
+            m->text[i]=((m->text[i]-'A'+key)%26)+'A';
+            // to understande it //
+            // m->text[i]-'A' : to get the index of the letter in the alphabet (0-25)
+            //  +key : to shift the letter by the key
+            // %26 : to wrap around if the index goes beyond 25
+            // +'A' : to convert the index back to a character
+            
+        }else if (isLowercase(m->text[i])){
+            m->text[i]=((m->text[i]-'a'+key)%26)+'a';
+        }
+    }
+}
+
+//11
+// description: function to decrypt a message using a Caesar cipher
+// input : a Message struct and an integer key
+// output : none (the function modifies the struct in place)
+void decryptCesar(struct Message *m, int key){
+    int i;
+    for ( i = 0; i < m->length; i++){
+        //there is a different between uppercase and lowr case in ASCII
+        if (isUppercase(m->text[i])){
+            //there is 26 letter so we use MOD 26
+            //the same with minus//
+            m->text[i]=((m->text[i]-'A'-key)%26)+'A';
+        }else if (isLowercase(m->text[i])){
+            m->text[i]=((m->text[i]-'a'-key)%26)+'a';
+        }
+    }
+
+}
+//12
+// description: function to encrypt a message using XOR cipher
+ // input : a Message struct and an integer key
+// output : none (the function modifies the struct in place)
+void encryptXOR(struct Message *m, int key){
+    int i;// we can use the length attribute of the struct Message
+    for ( i = 0; i < m->length; i++){ 
+        //^ is the XOR operator in C 
+        //the same function can be used for encryption and decryption
+        m->text[i]=m->text[i]^key;
+    }
+}
+
+
+//13 
+//description: function to decrypt a message using XOR cipher
+ // input : a Message struct and an integer
+// output : none (the function modifies the struct in place)
+void decryptXOR(struct Message *m, int key) {
+    int i;
+    for ( i = 0; i < m->length; i++)
+    {
+        m->text[i]=m->text[i]^key;
+        // to get back the original character we use the same operation
+        //then XORing again with the same key returns the original value
+    }
+    
+}
+//14
+//description: function to encrypt a message using substitution cipher
+ // input : a Message struct and a key (an array of 26 characters)
+    // output : none (the function modifies the struct in place)
+void encryptSubstitution(struct Message *m, char key[26]){
+    int i;
+    for ( i = 0; i < m->length ; i++)
+    {
+        if (isUppercase(m->text[i]))
+        {
+            m->text[i]=key[m->text[i]-'A'] ; 
+        }
+        //to get the index of the letter in the alphabet we subtract 'A' or 'a'
+        else if (isLowercase(m->text[i]))
+        {
+            m->text[i]=key[m->text[i]-'a'] ;
+            // we can use the same key for both uppercase and lowercase letters
+        }
+        
+        
+        
+    }
+    
+}
+//15
+//description: function to decrypt a message using substitution cipher
+// input : a Message struct and a key (an array of 26 characters)
+    // output : none (the function modifies the struct in place)
+void decryptSubstitution(struct Message *m, char key[26]){
+    int i,j;
+    for(i=0;i<m->length;i++){
+        for(j=0;j<26;j++){
+            if(key[j]==m->text[i]){
+                m->text[i]='a'+j;
+                break;
+            }
+        }
+    }
+
+}
 int main(){
     struct Message m;
     inputMessage(&m);
-    removeSpaces(&m);
+    decryptSubstitution(&m,"qwertyuiopasdfghjklzxcvbnm");
     displayMessage(m);
     return 0;
 }
