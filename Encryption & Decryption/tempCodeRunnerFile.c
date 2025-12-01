@@ -1,0 +1,1 @@
+compareMessages(m1,m2)

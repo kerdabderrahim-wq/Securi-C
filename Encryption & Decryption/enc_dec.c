@@ -218,7 +218,7 @@ void decryptSubstitution(struct Message *m, char key[26]){
 // input : a key (an array of 26 characters)
 // output : 1 if the key is valid, 0 otherwise
 // the criteria for a valid key are:
-// - it must contain exactly 26 characters
+// - it must contain exactly 26 characters, and we know that every string in C ends with '\0'
 // - all characters must be alphabetic
 // - no character should be repeated
 int isValidKey(char key[26]){
@@ -251,10 +251,42 @@ int isValidKey(char key[26]){
     
 }
 
+//17
+//description: function to compare two messages
+// two messages are considered equal if they have the same length and the same characters in the same order
+// input : two Message structs
+// output : 1 if the messages are equal, 0 otherwise
+
+int compareMessages(struct Message m1, struct Message m2){
+    int isequal,i;
+    isequal=1;
+    if (m1.length!=m2.length)
+    {
+        isequal=0;
+        // to exit early if lengths are different
+    }
+    
+    for ( i = 0; i < m1.length && isequal==1; i++)
+    {
+        if (m1.text[i]!=m2.text[i])
+        {
+            isequal=0;
+            break;
+            // to exit the loop early if we find a mismatch
+        }
+        
+    }
+    return (isequal);
+}
+int countCharacter(struct Message m, char c){
+    
+}
 int main(){
-    struct Message m;
-    //inputMessage(&m);
-    printf("%d",isValidKey("qwertyuiopasdfghjklzxcvbmn"));
+    struct Message m1;
+    inputMessage(&m1);
+    struct Message m2;
+    inputMessage(&m2);
+    printf("%d",compareMessages(m1,m2));
     //decryptSubstitution(&m,"qwertyuiopasdfghjklzxcvbnm");
     //displayMessage(m);
     return 0;
