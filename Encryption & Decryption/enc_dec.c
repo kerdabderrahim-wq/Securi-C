@@ -260,16 +260,13 @@ int isValidKey(char key[26]){
 int compareMessages(struct Message m1, struct Message m2){
     int isequal,i;
     isequal=1;
-    if (m1.length!=m2.length)
-    {
+    if (m1.length!=m2.length){
         isequal=0;
         // to exit early if lengths are different
     }
     
-    for ( i = 0; i < m1.length && isequal==1; i++)
-    {
-        if (m1.text[i]!=m2.text[i])
-        {
+    for ( i = 0; i < m1.length && isequal==1; i++){
+        if (m1.text[i]!=m2.text[i]){
             isequal=0;
             break;
             // to exit the loop early if we find a mismatch
