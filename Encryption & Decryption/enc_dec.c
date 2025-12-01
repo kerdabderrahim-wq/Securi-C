@@ -176,23 +176,20 @@ void decryptXOR(struct Message *m, int key) {
     }
     
 }
+
 //14
 //description: function to encrypt a message using substitution cipher
- // input : a Message struct and a key (an array of 26 characters)
-    // output : none (the function modifies the struct in place)
+// input : a Message struct and a key (an array of 26 characters)
+// output : none (the function modifies the struct in place)
 void encryptSubstitution(struct Message *m, char key[26]){
     int i;
-    for ( i = 0; i < m->length ; i++)
-    {
-        if (isUppercase(m->text[i]))
-        {
-            m->text[i]=key[m->text[i]-'A'] ; 
+    for ( i = 0; i < m->length ; i++){
+        if (isUppercase(m->text[i])){
+            m->text[i]=key[m->text[i]-'A']; 
         }
         //to get the index of the letter in the alphabet we subtract 'A' or 'a'
-        else if (isLowercase(m->text[i]))
-        {
-            m->text[i]=key[m->text[i]-'a'] ;
-            // we can use the same key for both uppercase and lowercase letters
+        else if (isLowercase(m->text[i])){
+            m->text[i]=key[m->text[i]-'a'];
         }
         
         
@@ -203,7 +200,7 @@ void encryptSubstitution(struct Message *m, char key[26]){
 //15
 //description: function to decrypt a message using substitution cipher
 // input : a Message struct and a key (an array of 26 characters)
-    // output : none (the function modifies the struct in place)
+// output : none (the function modifies the struct in place)
 void decryptSubstitution(struct Message *m, char key[26]){
     int i,j;
     for(i=0;i<m->length;i++){
@@ -216,10 +213,49 @@ void decryptSubstitution(struct Message *m, char key[26]){
     }
 
 }
+//16
+//description: function to check if a substitution key is valid
+// input : a key (an array of 26 characters)
+// output : 1 if the key is valid, 0 otherwise
+// the criteria for a valid key are:
+// - it must contain exactly 26 characters
+// - all characters must be alphabetic
+// - no character should be repeated
+int isValidKey(char key[26]){
+    int isValid,i,j,length;
+    isValid=1;
+    length=0;
+    for (int i = 0; key[i]!='\0'; i++){
+        length++;
+    }
+    if (length!=26){
+        isValid=0;
+    }
+
+    for ( i = 0; isValid && i<26; i++){
+        if (!isAlphabetic(key[i])){
+            isValid=0;
+            break;
+        }
+        for (j = 0; j < i; j++){
+            if(key[i]==key[j]){
+                isValid=0;
+                break;
+            }
+        }
+        
+        
+    }
+    return isValid;
+    
+    
+}
+
 int main(){
     struct Message m;
-    inputMessage(&m);
-    decryptSubstitution(&m,"qwertyuiopasdfghjklzxcvbnm");
-    displayMessage(m);
+    //inputMessage(&m);
+    printf("%d",isValidKey("qwertyuiopasdfghjklzxcvbmn"));
+    //decryptSubstitution(&m,"qwertyuiopasdfghjklzxcvbnm");
+    //displayMessage(m);
     return 0;
 }
