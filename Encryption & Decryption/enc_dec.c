@@ -275,30 +275,28 @@ int compareMessages(struct Message m1, struct Message m2){
     }
     return (isequal);
 }
+
+//18
+//description: function to count the occurrences of a character in a message
+// input : a Message struct and a character c
+// output : the number of times c appears in the message
+
 int countCharacter(struct Message m, char c){
     int i,count_char;
+    count_char=0;
     for(i=0;i<m.length;i++){
-        if (m.text[i]==c)
-        {
-            
+        if (m.text[i]==c){
+            count_char++;
         }
-        
-        count_char=count_char+1;
-
     }
-    if (count_char!=0)
-    {
-        
-    }
-    
-    
+    return count_char;
 }
+
+
 int main(){
     struct Message m1;
     inputMessage(&m1);
-    struct Message m2;
-    inputMessage(&m2);
-    printf("%d",compareMessages(m1,m2));
+    printf("%d",countCharacter(m1,'a'));
     //decryptSubstitution(&m,"qwertyuiopasdfghjklzxcvbnm");
     //displayMessage(m);
     return 0;
