@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <time.h>
 #include <limits.h>
+struct Matrix{ 
+int data[10][10]; 
+int n, p; 
+};
 
 //1
 /*
@@ -27,6 +31,8 @@ output : 1 if prime or 0 otherwise
 */
 int isPrime(int a){
     if (a<=1)
+    //there is no prime number less than or equal to 1
+    //1 is not prime//
     {
         return 0;
     }
@@ -38,6 +44,7 @@ int isPrime(int a){
         }
         
     }
+    
     return 1;
     
 }
@@ -52,12 +59,11 @@ output : the gcd
 int gcd(int a,int b){
     int temp;
     while(b!=0){
-    temp = a;
-    a=a&b;
-    b=temp;
-    return a;
+    temp = b;
+    b=a % b;
+    a=temp;
 }
-
+        return a;
 }
 //4
 /*
@@ -67,17 +73,7 @@ output : the lsm
 
 */
 int lcm(int a,int b){
-    int temp, temp_a,temp_b,result;
-    temp_a=a;
-    temp_b=b;
-    while(b!=0){
-    temp = b;
-    b=a % b;
-    a=temp;
-
-        }
-    result=((temp_a/a)*b);
-    return result;
+    return (a*b)/gcd(a,b);
 
 
 }
@@ -101,6 +97,7 @@ int power(int base,int exp){
 int modExp(int base, int exp, int mod){
     
     return (power(base%mod,exp))%mod;
+    // try 1 10 1000//
 }
 
 
@@ -386,13 +383,19 @@ void sortAscending(int T[], int n){
 
 int main(){
 
-    int i, arr[]={99098,3,4,5,6,78,9,0,7,45,4};
-    sortAscending(arr,11);
-    for ( i = 0; i <11; i++)
-    {
-        printf("%d,",arr[i]);
-    }
+    int n,t,k;
+    printf("hello");
+    scanf("%d",&n);
+    scanf("%d",&t);
+    scanf("%d",&k);
+    //scanf("%d",&t);
+    printf("%d",factorial(n));
+    //arr[]={99098,3,4,5,6,78,9,0,7,45,4};
+    //sortAscending(arr,11);
+    //for ( i = 0; i <11; i++)
+    // //   printf("%d,",arr[i]);
+    //}
     
-    printf("%d",minArray(arr,11));
+    //printf("%d",minArray(arr,11));
     return 0;
 }
