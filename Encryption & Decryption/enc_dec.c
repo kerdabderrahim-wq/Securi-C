@@ -286,16 +286,23 @@ int countCharacter(struct Message m, char c){
     count_char=0;
     for(i=0;i<m.length;i++){
         if (m.text[i]==c){
+            //if the current letter is the same as the input char
             count_char++;
+            //add one to the counter
         }
     }
     return count_char;
 }
+//description : a procedure that calculate the frequency of each letter in a message  
+// input : a Message struct
+// output : none (the function prints the frequency of each letter to the console) 
 void frequencyAnalysis(struct Message m){
     int i,c1,c2;
     for(i=0;i<26;i++){
+        // this means that for each letter in the alphabet
         c1=countCharacter(m,i+'a');
         c2=countCharacter(m,i+'A');
+        // print only if the count is not zero
             if (c1!=0)
             {
                 printf("%c",i+'a');
@@ -311,12 +318,32 @@ void frequencyAnalysis(struct Message m){
             
     }
 }
+//description : a function that calculate the coincidence index of a message
+// input : a Message struct
+// output : the coincidence index as a float value
+float coincidenceIndex(struct Message m){
+    float f,i,result, n;
+    result=0;
+    n=0;
 
+    for ( i = 0; i < 26; i++)
+    {
+        f=countCharacter(m,i+'a')+countCharacter(m,i+'A');
+        // this to count both lowercase and uppercase letters if there exist
+        result=result+f*(f-1);
+        n=n+f;
+        // to calculate the total number of letters in the message
+        
+
+    }
+    return ((result)/(n*(n-1)));
+    
+}
 
 int main(){
     struct Message m1;
     inputMessage(&m1);
-    frequencyAnalysis(m1);
+    printf("%f",coincidenceIndex(m1));
     //decryptSubstitution(&m,"qwertyuiopasdfghjklzxcvbnm");
     //displayMessage(m);
     return 0;
