@@ -2,8 +2,8 @@
 #include <time.h>
 #include <limits.h>
 struct Matrix{ 
-int data[10][10]; 
-int n, p; 
+    int data[10][10]; 
+    int n, p; 
 };
 
 //1
@@ -78,7 +78,7 @@ int lcm(int a,int b){
 
 }
  //5
-//this function is needed for the modExp function it calculate base to the exp power
+//description this function is needed for the modExp function it calculate base to the exp power
 //input :the base and the exp
 //output : base^exp
 int power(int base,int exp){
@@ -91,7 +91,7 @@ int power(int base,int exp){
 
 }
 
-//Performs modular exponentiation
+//description Performs modular exponentiation
 //input :the base and the exp and mod
 //output : base^exp MOD mod
 int modExp(int base, int exp, int mod){
@@ -104,7 +104,7 @@ int modExp(int base, int exp, int mod){
 
 
 //6
-//factorial function
+//description factorial function
 //input : an integer n
 //output : n!
 int factorial(int n){
@@ -121,7 +121,7 @@ int factorial(int n){
 }
 
 //7
-//sum of digits function
+//description sum of digits function
 //input : an integer n
 //output : sum of digits of n
 int sumDigits(int n){
@@ -141,7 +141,7 @@ int sumDigits(int n){
 
 
 //8
-//reverse number function
+//description reverse number function
 //input : an integer n  
 //output : the reverse of n
 int reverseNumber(int n)
@@ -160,7 +160,7 @@ int reverseNumber(int n)
 }
 
 //9
-//palindrome function
+//description palindrome function
 //input : an integer n  /
 //output : 1 if n is palindrome 0 otherwise
 int isPalindromeNumber(int n){
@@ -190,7 +190,7 @@ int isPalindromeNumber(int n){
 
 
 //10
-//sum of divisors function
+//description sum of divisors function
 //input : an integer n
 //output : sum of divisors of n
 int sumDivisors(int n){
@@ -214,7 +214,7 @@ int sumDivisors(int n){
     return s_div;
 }
 //11
-//perfect number function
+//description perfect number function
 //input : an integer n
 //output : 1 if n is perfect number 0 otherwise
 int isPerfectNumber(int n){
@@ -239,7 +239,7 @@ for(i=1;i<=n/2;i++){
     }
 
 //12
-//armstrong number function
+//description armstrong number function
 //input : an integer n
 //output : 1 if n is armstrong number 0 otherwise
 int isArmstrong(int n){
@@ -280,7 +280,7 @@ int isArmstrong(int n){
 
 
 //13
-//random number function
+//description random number function
 //input : max and min values
 //output : a random float number between min and max
 float randomNumber(int max , int min){
@@ -294,7 +294,7 @@ float randomNumber(int max , int min){
 }
 
 //14
-//sum of array function
+//description sum of array function
 //input : an array T of n integers
 //output : sum of the integers in T
 int sumArray(int T[],int n){
@@ -313,7 +313,7 @@ int sumArray(int T[],int n){
 
 
 //15
-//average of array function
+//description average of array function
 //input : an array T of n integers
 //output : average of the integers in T
 float averageArray(int T[], int n){
@@ -321,7 +321,7 @@ float averageArray(int T[], int n){
 
 }
 //16
-//maximum of array function
+//description maximum of array function
 //input : an array T of n integers
 //output : maximum of the integers in T
 int maxArray(int T[], int n) {
@@ -358,7 +358,7 @@ int minArray(int T[], int n) {
     
 }
 //18
-//sorting array in ascending order function
+//description sorting array in ascending order function
 //input : an array T of n integers
 //output : the array T sorted in ascending order
 void sortAscending(int T[], int n){
@@ -379,19 +379,79 @@ void sortAscending(int T[], int n){
     
 
 }
+//19
+//display matrix function
+void displayMatrix(struct Matrix M){
+    int i,j;
+    for ( i = 0; i < M.n; i++){
+        for (j = 0; j <M.p; j++){
+            printf("%d",M.data[i][j]);
+            printf(",");
 
+        }
+
+        printf("\n");
+    }
+    
+}
+void addMatrices(struct Matrix A, struct Matrix B, struct Matrix *C){
+    int i,j;
+    for ( i = 0; i < A.n; i++)
+    {
+        for ( j = 0; j < A.p; j++)
+        {
+            C->data[i][j]=A.data[i][j]+B.data[i][j];
+        }
+    }
+    
+
+}
+void  multiplyMatrices(struct Matrix A, struct Matrix B, struct Matrix *C){
+    int i,j;
+    for ( i = 0; i < A.n; i++)
+    {
+        for ( j = 0; j < A.p; j++)
+        {
+            C->data[i][j]=A.data[i][j]*B.data[i][j];
+        } 
+    }
+    
+}
+void transposeMatrix(struct Matrix A, struct Matrix *T){
+    int i,j;
+    for ( i = 0; i < A.n; i++)
+    {
+        for ( j = 0; j <A.p ; j++)
+        {
+            T->data[j][i]=A.data[i][j];
+        }
+    }
+}
+int determinant2x2(int A[2][2]); {
+    
+}
 int main(){
 
     int n,t,k;
-    printf("hello");
+    printf("Enter the number of rows and columns of the matrix:\n");
     scanf("%d",&n);
     scanf("%d",&t);
-    //scanf("%d",&k);
-    //scanf("%d",&t);
-    printf("%f8",randomNumber(n,t));
-    //arr[]={9098,3,4,5,6,78,9,0,7,45,4};
-    //sortAscending(arr,11);a
-    
-    //printf("%d",minArray(arr,11));
+    //test matrix transpose
+    struct Matrix A,T;  
+    A.n=n;
+    A.p=t;
+    T.n=t;
+    T.p=n;
+    printf("Enter the elements of the matrix A:\n");
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < t; j++){
+            scanf("%d",&A.data[i][j]);
+        }
+    }
+    transposeMatrix(A,&T);
+    printf("the original matrix is:\n");
+    displayMatrix(A);
+    printf("The transposed matrix is:\n");
+    displayMatrix(T);
     return 0;
 }
