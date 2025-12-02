@@ -291,12 +291,32 @@ int countCharacter(struct Message m, char c){
     }
     return count_char;
 }
+void frequencyAnalysis(struct Message m){
+    int i,c1,c2;
+    for(i=0;i<26;i++){
+        c1=countCharacter(m,i+'a');
+        c2=countCharacter(m,i+'A');
+            if (c1!=0)
+            {
+                printf("%c",i+'a');
+                printf(":");
+                printf("%d\n",c1);
+            }
+            if (c2!=0)
+            {
+                printf("%c",i+'A');
+                printf(":");
+                printf("%d\n",c2);
+            }
+            
+    }
+}
 
 
 int main(){
     struct Message m1;
     inputMessage(&m1);
-    printf("%d",countCharacter(m1,'a'));
+    frequencyAnalysis(m1);
     //decryptSubstitution(&m,"qwertyuiopasdfghjklzxcvbnm");
     //displayMessage(m);
     return 0;
