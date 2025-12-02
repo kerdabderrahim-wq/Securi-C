@@ -427,8 +427,31 @@ void transposeMatrix(struct Matrix A, struct Matrix *T){
         }
     }
 }
-int determinant2x2(int A[2][2]); {
-    
+int determinant2x2(int A[2][2]) {
+    return A[0][0]*A[1][1]-A[1][0]*A[0][1];
+}
+int isSymmetric(struct Matrix M){
+    struct Matrix T;
+    transposeMatrix(M,&T);
+    for (int i = 0; i < M.n; i++){
+        for (int j = 0; j < M.p; j++){
+            if (M.data[i][j]!=T.data[i][j]){
+                return 0;
+            }
+        }
+    }
+    return 1;
+}
+int isIdentity(struct Matrix M){
+    int i,j;
+      for (int i = 0; i < M.n; i++){
+        for (int j = 0; j < M.p; j++){
+            if ((j==i && M.data[i][j]!=1)||((j!=i && M.data[i][j]!=0))){
+                return 0;
+            }
+        }
+    }
+    return 1;
 }
 int main(){
 
@@ -453,5 +476,7 @@ int main(){
     displayMatrix(A);
     printf("The transposed matrix is:\n");
     displayMatrix(T);
+    printf("identity test : %d\n",isIdentity(A));
+    
     return 0;
 }
