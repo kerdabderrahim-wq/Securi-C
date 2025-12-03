@@ -477,7 +477,7 @@ int isSymmetric(struct Matrix M){
 //output : 1 if M is identity 0 otherwise
 int isIdentity(struct Matrix M){
     int i,j;
-      for (int i = 0; i < M.n; i++){
+    for (int i = 0; i < M.n; i++){
         for (int j = 0; j < M.p; j++){
             if ((j==i && M.data[i][j]!=1)||((j!=i && M.data[i][j]!=0))){
                 //if diagonal element not 1 or non diagonal element not 0//
