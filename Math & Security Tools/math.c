@@ -11,8 +11,8 @@ struct Matrix{
 description: a function that return 1 or 0 if the number is even or odd respectively
 input : an integer a
 output : 0 if odd or 1 if even 
-
 */
+
 int isEven(int a){
     if (a%2==0)
     {
@@ -318,6 +318,7 @@ int sumArray(int T[],int n){
 //output : average of the integers in T
 float averageArray(int T[], int n){
     return (float)sumArray(T,n)/n;
+    //we cast the sum to float to avoid integer division so with float be division of float /float //
 
 }
 //16
@@ -384,8 +385,12 @@ void sortAscending(int T[], int n){
 void displayMatrix(struct Matrix M){
     int i,j;
     for ( i = 0; i < M.n; i++){
+        //for each row//
         for (j = 0; j <M.p; j++){
+            //for each element in the matrix//
             printf("%d",M.data[i][j]);
+            //print the element//
+
             printf(",");
 
         }
@@ -487,6 +492,14 @@ int isIdentity(struct Matrix M){
     }
     return 1;
 }
+
+//============================================================================================================
+//Extra procedures needed for the command interface
+//============================================================================================================
+
+
+
+
 
 int main(){
 
