@@ -390,10 +390,15 @@ void displayMatrix(struct Matrix M){
             //for each element in the matrix//
             printf("%d",M.data[i][j]);
             //print the element//
-
-            printf(",");
+                if (j<M.p-1)
+                {
+                    printf(",");
+                }
+                
+            
 
         }
+        
 
         printf("\n");
     }
@@ -525,6 +530,16 @@ int main(){
     printf("The transposed matrix is:\n");
     displayMatrix(T);
     printf("identity test : %d\n",isIdentity(A));
+    /*int i,arr[5]={2,9,74,93,23};
+    sortAscending(arr,5);
+    for ( i = 0; i < 5; i++)
+    {
+        printf("%d \n",arr[i]);
+    }*/
+    
+    
+
+
     
     return 0;
 }
