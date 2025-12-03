@@ -394,6 +394,10 @@ void displayMatrix(struct Matrix M){
     }
     
 }
+//20
+//matrix addition function
+//input : two matrices A and B of same dimensions n x p
+//output : matrix C which is the addition of A and B
 void addMatrices(struct Matrix A, struct Matrix B, struct Matrix *C){
     int i,j;
     for ( i = 0; i < A.n; i++)
@@ -401,11 +405,16 @@ void addMatrices(struct Matrix A, struct Matrix B, struct Matrix *C){
         for ( j = 0; j < A.p; j++)
         {
             C->data[i][j]=A.data[i][j]+B.data[i][j];
+            //we use -> to access the data of the matrix C because C is a pointer//
         }
     }
     
 
 }
+//21
+//matrix multiplication function
+//input : two matrices A and B of same dimensions n x p
+//output : matrix C which is the multiplication of A and B
 void  multiplyMatrices(struct Matrix A, struct Matrix B, struct Matrix *C){
     int i,j;
     for ( i = 0; i < A.n; i++)
@@ -413,10 +422,17 @@ void  multiplyMatrices(struct Matrix A, struct Matrix B, struct Matrix *C){
         for ( j = 0; j < A.p; j++)
         {
             C->data[i][j]=A.data[i][j]*B.data[i][j];
+            //  we use -> to access the data of the matrix C because C is a pointer//
+
         } 
     }
     
 }
+//22
+//matrix transpose function 
+//input : a matrix A of dimensions n x p
+//output : matrix T which is the transpose of A
+
 void transposeMatrix(struct Matrix A, struct Matrix *T){
     int i,j;
     for ( i = 0; i < A.n; i++)
@@ -424,35 +440,54 @@ void transposeMatrix(struct Matrix A, struct Matrix *T){
         for ( j = 0; j <A.p ; j++)
         {
             T->data[j][i]=A.data[i][j];
+            // we use -> to access the data of the matrix T because T is a pointer//    
         }
     }
 }
+//23
+//2x2 matrix determinant function
+//input : a 2x2 matrix A
+//output : determinant of A
+
 int determinant2x2(int A[2][2]) {
     return A[0][0]*A[1][1]-A[1][0]*A[0][1];
+    //ad-bc in the matrix//
 }
+//24
+//symmetric matrix test function
+//input : a matrix M of dimensions n x p
+//output : 1 if M is symmetric 0 otherwise  
 int isSymmetric(struct Matrix M){
     struct Matrix T;
     transposeMatrix(M,&T);
     for (int i = 0; i < M.n; i++){
         for (int j = 0; j < M.p; j++){
+            
             if (M.data[i][j]!=T.data[i][j]){
+                
                 return 0;
             }
         }
     }
     return 1;
 }
+//25
+//identity matrix test function
+//input : a matrix M of dimensions n x p
+//output : 1 if M is identity 0 otherwise
 int isIdentity(struct Matrix M){
     int i,j;
       for (int i = 0; i < M.n; i++){
         for (int j = 0; j < M.p; j++){
             if ((j==i && M.data[i][j]!=1)||((j!=i && M.data[i][j]!=0))){
+                //if diagonal element not 1 or non diagonal element not 0//
                 return 0;
             }
         }
     }
     return 1;
 }
+
 int main(){
 
     int n,t,k;
