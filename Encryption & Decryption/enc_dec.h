@@ -1,4 +1,10 @@
+#ifndef ENC_DEC_H  //we must put it if we create a library//
+#define ENC_DEC_H //we must put it if we create a library//
 
+struct Message {
+    char text[512];
+    int length;
+};
 void inputMessage(struct Message *m);
 void displayMessage(struct Message m);
 int isUppercase(char c);   
@@ -19,3 +25,4 @@ int compareMessages(struct Message m1, struct Message m2);
 int countCharacter(struct Message m, char c);
 void frequencyAnalysis(struct Message m);
 float coincidenceIndex(struct Message m);
+#endif //we must put it if we create a library//

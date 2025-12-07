@@ -340,11 +340,3 @@ float coincidenceIndex(struct Message m){
     
 }
 
-int main(){
-    struct Message m1;
-    inputMessage(&m1);
-    printf("%f",coincidenceIndex(m1));
-    //decryptSubstitution(&m,"qwertyuiopasdfghjklzxcvbnm");
-    //displayMessage(m);
-    return 0;
-}

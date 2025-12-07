@@ -501,43 +501,147 @@ int isIdentity(struct Matrix M){
 //============================================================================================================
 //Extra procedures needed for the command interface
 //============================================================================================================
+void inputNumber(int *n,char *msg){
+    printf(msg);
+    scanf("%d",n);
+    //* with & cancel out //
+}
+void outputNumber(int n, char *msg){
+    printf("%s %d\n",msg,n);
+}
+void _isEven(){
+    int n;
+    inputNumber(&n, "Enter a number : ");
+    if(isEven(n)){
+        //one represent true and 0 represent false 
+        printf("The number is even");
+    }else{
+        printf("The number is odd");
+    }
+}
+void _isPrime(){
+    int n;
+    inputNumber(&n,"Enter a number : ");
+    if(isPrime(n)){
+        printf("The number is prime");
+    }else{
+        printf("The number is not prime");
+    }
+}
+void _gcd(){
+    int a,b;
+    inputNumber(&a,"Enter the first number : ");
+    inputNumber(&b,"Enter the second number : ");
+    outputNumber(gcd(a,b),"The gcd is :");
+}
 
+void _lcm(){
+    int a,b;
+    inputNumber(&a,"Enter the first number : ");
+    inputNumber(&b,"Enter the second number : ");
+    outputNumber(lcm(a,b),"The lcm is :");
+}
+void _modExp(){
+    int base,exp,mod;
+    inputNumber(&base,"Enter the base : ");
+    inputNumber(&exp,"Enter the exp : ");
+    inputNumber(&mod,"Enter the mod : ");
+    outputNumber(modExp(base,exp,mod),"The modular exponentiation result is :");
+}
+void _factorial(){
+    int n;
+    inputNumber(&n,"Enter a number : ");
+    outputNumber(factorial(n),"The factorial is :");
 
+}
+void _sumDigits(){
+    int n;
+    inputNumber(&n,"Enter a number : ");
+    outputNumber(sumDigits(n),"The sum of digits is :");
+}
+void _reverseNumber(){
+    int n;
+    inputNumber(&n,"Enter a number : ");
+    outputNumber(reverseNumber(n),"The reverse number is :");
+}
+void _isPalindromeNumber(){
+    int n;
+    inputNumber(&n,"Enter a number : ");
+    if(isPalindromeNumber(n)){
+        printf("The number is a palindrome");
+    }else{
+        printf("The number is not a palindrome");
+    }
+}
+void _sumDivisors(){
+    int n;
+    inputNumber(&n,"Enter a number : ");
+    outputNumber(sumDivisors(n),"The sum of divisors is :");
+}
+void _isPerfectNumber(){
+    int n;
+    inputNumber(&n,"Enter a number : ");
+    if(isPerfectNumber(n)){
+        printf("The number is a perfect number");
+    }else{
+        printf("The number is not a perfect number");
+    }
+}
 
+void _isArmstrong(){
+    int n;
+    inputNumber(&n,"Enter a number : ");
+    if(isArmstrong(n)){
+        printf("The number is an armstrong number");
+    }else{
+        printf("The number is not an armstrong number");
+    }
+}
+void _randomNumber(){
+    int min,max;
+    float randNum;
+    inputNumber(&min,"Enter the min value : ");
+    inputNumber(&max,"Enter the max value : ");
+    randNum=randomNumber(max,min);
+    printf("The random number is : %.6f\n",randNum);
+}
+void _sumArray(){
+    int n,i;
+    printf("Enter the number of elements in the array : ");
+    scanf("%d",&n);
+    int T[n];
+    for ( i = 0; i < n; i++)
+    {
+        printf("Enter element %d : ",i+1);
+        scanf("%d",&T[i]);
+    }
+    outputNumber( sumArray(T,n),"The sum of the array is :");
+}
+void _averageArray(){
+    int n,i;
+    float avg;
+    printf("Enter the number of elements in the array : ");
+    scanf("%d",&n);
+    int T[n];
+    for ( i = 0; i < n; i++)
+    {
+        printf("Enter element %d : ",i+1);
+        scanf("%d",&T[i]);
+    }
+    avg= averageArray(T,n);
+    printf("The average of the array is : %.2f\n",avg);
+}
 
 
 int main(){
 
-    int n,t,k;
-    printf("Enter the number of rows and columns of the matrix:\n");
-    scanf("%d",&n);
-    scanf("%d",&t);
-    //test matrix transpose
-    struct Matrix A,T;  
-    A.n=n;
-    A.p=t;
-    T.n=t;
-    T.p=n;
-    printf("Enter the elements of the matrix A:\n");
-    for (int i = 0; i < n; i++){
-        for (int j = 0; j < t; j++){
-            scanf("%d",&A.data[i][j]);
-        }
-    }
-    transposeMatrix(A,&T);
-    printf("the original matrix is:\n");
-    displayMatrix(A);
-    printf("The transposed matrix is:\n");
-    displayMatrix(T);
-    printf("identity test : %d\n",isIdentity(A));
-    /*int i,arr[5]={2,9,74,93,23};
-    sortAscending(arr,5);
-    for ( i = 0; i < 5; i++)
-    {
-        printf("%d \n",arr[i]);
-    }*/
-    
-    
+_isEven();
+_isPrime();
+_gcd();
+_lcm();
+_modExp();
+_factorial();
+
 
 
     
