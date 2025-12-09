@@ -590,60 +590,174 @@ void _isPerfectNumber(){
 
 void _isArmstrong(){
     int n;
-    inputNumber(&n,"Enter a number : ");
-    if(isArmstrong(n)){
-        printf("The number is an armstrong number");
-    }else{
-        printf("The number is not an armstrong number");
+    inputNumber(&n,"Enter the number :");
+    if (isArmstrong(n))
+    {
+        printf("The number is armstrong");
     }
+    else{
+        printf("The number is not armstrong");
+    }
+    
+
 }
 void _randomNumber(){
-    int min,max;
-    float randNum;
+    int min , max;
     inputNumber(&min,"Enter the min value : ");
     inputNumber(&max,"Enter the max value : ");
-    randNum=randomNumber(max,min);
-    printf("The random number is : %.6f\n",randNum);
-}
-void _sumArray(){
-    int n,i;
-    printf("Enter the number of elements in the array : ");
-    scanf("%d",&n);
-    int T[n];
-    for ( i = 0; i < n; i++)
-    {
-        printf("Enter element %d : ",i+1);
-        scanf("%d",&T[i]);
-    }
-    outputNumber( sumArray(T,n),"The sum of the array is :");
-}
-void _averageArray(){
-    int n,i;
-    float avg;
-    printf("Enter the number of elements in the array : ");
-    scanf("%d",&n);
-    int T[n];
-    for ( i = 0; i < n; i++)
-    {
-        printf("Enter element %d : ",i+1);
-        scanf("%d",&T[i]);
-    }
-    avg= averageArray(T,n);
-    printf("The average of the array is : %.2f\n",avg);
+    printf("The random number is : %f\n",randomNumber(max,min));
 }
 
+
+void inputArray(int T[],int *n){
+    int i,temp;
+    printf("Enter the number of  elements of array : ");
+    scanf("%d",n);
+        for ( i = 0; i < *n; i++)
+    {   
+        printf("Enter the number %d element : ",i+1);
+        scanf("%d",&temp);
+        T[i]=temp;
+    }
+    
+}
+void outputArray(int T[],int n,char msg[]){
+    int i;
+    printf(msg);
+        for ( i = 0; i < n-1; i++)
+    {   
+        printf("%d,",T[i]);
+        
+    }
+    printf("%d",T[n-1]);
+}
+
+
+void _sumArray(){
+    int T[100],n;
+    inputArray(T,&n);
+    outputNumber(sumArray(T,n),"The sum is : ");
+    
+
+}
+
+void _averageArray(){
+    int T[100],n;
+    inputArray(T,&n);
+    printf("The average is : %f\n",averageArray(T,n));
+    //we dont use output number because it works only with integers so we use printf
+
+    
+    
+
+}
+void _maxArray(){
+    int T[100],n;
+    inputArray(T,&n);
+    outputNumber(maxArray(T,n),"The max of the array is : ");
+}
+void _minArray(){
+    int T[100],n;
+    inputArray(T,&n);
+    outputNumber(minArray(T,n),"The min of the array is : ");
+}
+void _sortAscending(){
+    int T[100],n,i;
+    inputArray(T,&n);
+    sortAscending(T,n);
+    printf("The sorted array in ascending order is : ");
+    for ( i = 0; i < n; i++)
+    {
+        printf("%d ",T[i]);
+    }
+    printf("\n");
+}
+void inputMatrix(struct Matrix *M){
+    int i,j;
+    printf("Enter the number of rows : ");
+    scanf("%d",&(M->n));
+    printf("Enter the number of columns : ");
+    scanf("%d",&(M->p));
+    for ( i = 0; i < M->n; i++)
+    {
+        for ( j = 0; j < M->p; j++)
+        {
+            printf("Enter element [%d][%d] : ",i,j);
+            scanf("%d",&(M->data[i][j]));
+        }
+        
+    }
+}
+void _displayMatrix(){
+    struct Matrix M;
+    inputMatrix(&M);
+    displayMatrix(M);
+}
+void _addMatrices(){
+    struct Matrix A,B,C;
+    printf("Input matrix A : \n");
+    inputMatrix(&A);
+    printf("Input matrix B : \n");
+    inputMatrix(&B);
+    addMatrices(A,B,&C);
+    printf("The result of addition is : \n");
+    displayMatrix(C);
+}
+void _multiplyMatrices(){
+    struct Matrix A,B,C;
+    printf("Input matrix A : \n");
+    inputMatrix(&A);
+    printf("Input matrix B : \n");
+    inputMatrix(&B);
+    multiplyMatrices(A,B,&C);
+    printf("The result of multiplication is : \n");
+    displayMatrix(C);
+}
+void _transposeMatrix(){
+    struct Matrix A,T;
+    printf("Input matrix A : \n");
+    inputMatrix(&A);
+    transposeMatrix(A,&T);
+    printf("The transpose of matrix A is : \n");
+    displayMatrix(T);
+}
+void _determinant2x2(){
+    int A[2][2];
+    printf("Enter element [0][0] : ");
+    scanf("%d",&A[0][0]);
+    printf("Enter element [0][1] : ");
+    scanf("%d",&A[0][1]);
+    printf("Enter element [1][0] : ");
+    scanf("%d",&A[1][0]);
+    printf("Enter element [1][1] : ");
+    scanf("%d",&A[1][1]);
+    printf("The determinant is : %d\n",determinant2x2(A));
+}
+
+void _isSymmetric(){
+    struct Matrix M;
+    inputMatrix(&M);
+    if (isSymmetric(M)){
+        printf("The matrix is symmetric\n");
+    }else{
+        printf("The matrix is not symmetric\n");
+    }
+}
+void _isIdentity(){
+    struct Matrix M;
+    inputMatrix(&M);
+    if (isIdentity(M)){
+        printf("The matrix is identity\n");
+    }else{
+        printf("The matrix is not identity\n");
+    }
+}
 
 int main(){
-
-_isEven();
-_isPrime();
-_gcd();
-_lcm();
-_modExp();
-_factorial();
-
-
-
+    struct Matrix M;
+    inputMatrix(&M);
+    displayMatrix(M);
+    
     
     return 0;
 }
