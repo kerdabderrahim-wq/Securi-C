@@ -6,6 +6,7 @@ struct User{
     int role;   // 0: user, 1: admin 
     int state;  // 0: active, 1: blocked 
 };
+int searchUser(struct User users[], int n, char name[]);
 //1
 //function to initialize an array of users
 //input : the number of users 
@@ -75,7 +76,7 @@ void addUser(struct User users[], int n){
     struct User new_user;
     printf("Enter username: ");
     scanf("%s", new_user.name);
-    while(searchUser(users,new_user.name)!=-1){
+    while(searchUser(users,n,new_user.name)!=-1){
         printf("username is already exist please enter ANOTHER NAME");
     scanf("%s", new_user.name);
     //we check if the username already exists
@@ -181,7 +182,7 @@ int checkLogin(struct User users[], int n, char name[], char pass[]){
     {
         return 0;
     }else{
-        if (strcmp(users[index].password,pass))
+        if (strcmp(users[index].password,pass)==0)
         {
             return 1;
         }
@@ -189,11 +190,36 @@ int checkLogin(struct User users[], int n, char name[], char pass[]){
     }
     return 0;
 }
+int strongPassword(char pass[])
+{
+    int i,length,isuppercase,containDigit;
+    i=0;
+    length=0;
+    containDigit=0;
+    isuppercase=0;
+    while (pass[i]!='\0')
+    {
+        length=length+1;
+        i=i+1;
+        if (pass[i]>='A' && pass[i]<='Z')
+        {
+            isuppercase=1;
+        }
+        //Contains at least one digit
+        if (pass[i]>='0' && pass[i]<='9')
+        {
+            containDigit=1;
+        }
+        
+    }
+    return(length>8 && containDigit==1 && isuppercase==1);
+    //if all the conditions are satisfied return 1 else return 0
+    
 
+}
 int main (){
     int n;
     struct User hello[199];
-    initUsers(hello,3);
-    printf("%d",checkLogin(hello,3,"karim","kariim"));
+    printf("%d",strongPassword("uitjhruriA1thj"));
     return 0;
 }
