@@ -221,37 +221,72 @@ int strongPassword(char pass[])
     
 
 }
+//9
+//function to block a user
+//input : an array of users, the number of users and the name of the user to block
+//output : block the user by setting the state to 1
+
 void blockUser(struct User users[], int n, char name[]){
     int index;
     index=searchUser(users,n,name);
+    //search for the user
     if (index!=-1)
     {
         users[index].state=1;
+        //set the state to blocked
+        printf("User %s blocked successfully\n", users[index].name);
     }
     
 }
+//10
+//function to unblock a user
+//input : an array of users,the size and the name of the user to
+//output : unblock the user by setting the state to 0
 void unblockUser(struct User users[], int n, char name[]){
     int index;
     index=searchUser(users,n,name);
+    //search for the user
+     if (index==-1)
+    {
+        printf("user not found");
+    }
+    
     if (index!=-1)
     {
-        users[index].state=0;
+        users[index].state=0; // change the state 
     }
     
 }
+//11
+//function to change a user role
+//input : an array of users, the size, the name of the user and the new role
+//output : change the role of the user if found
 void changeRole(struct User users[], int n, char name[], int role){
     int index;
     index=searchUser(users,n,name);
+    //search for the user
+    if (index==-1)
+    {
+        printf("user not found");
+    }
+    // the case if the user is found
     if (index!=-1)
     {
         users[index].role=role;
     }
     
 }
+//12
+//function to list all admins
+//input : an array of users and the size
+//output : print the names of all admins 
 void listAdmins(struct User users[], int n){
     int i;
+    printf("List of admins: \n");
+    //print the list of admins
 for ( i = 0; i < n; i++)
 {
+    //
     if (users[i].role==1)
     {
         printf("%s\n",users[i].name);
@@ -260,6 +295,10 @@ for ( i = 0; i < n; i++)
     
     }
 }
+//13
+//function to list all blocked users
+//input : an array of users and the size
+//output : print the names of all blocked users
 int stringLength(char str[]){
     int i,length;
     length=0;
@@ -271,6 +310,10 @@ int stringLength(char str[]){
     }
     return length;
 }
+//14
+//function to check if a string contains uppercase letters
+//input : a string
+//output : 1 if it contains uppercase letters, 0 otherwise
 int containsUppercase(char str[]){
     int i,isuppercase;
     i=0;
@@ -287,6 +330,10 @@ int containsUppercase(char str[]){
     }
     return isuppercase;
 }
+//15
+//function to check if a string contains lowercase letters
+//input : a string
+//output : 1 if it contains lowercase letters, 0 otherwise
 int containsLowercase(char str[]){
     int i,islowercase;
     i=0;
@@ -304,6 +351,10 @@ int containsLowercase(char str[]){
     return islowercase;
 
 }
+//16
+//function to check if a string contains digits 
+//input : a string
+//output : 1 if it contains digits, 0 otherwise
 int containsDigit(char str[]){
     int i,containDigit;
     i=0;
@@ -322,6 +373,10 @@ int containsDigit(char str[]){
     }
     return containDigit;
 }
+//17
+//function to check if a string contains symbols    
+//input : a string
+//output : 1 if it contains symbols, 0 otherwise
 int containsSymbol(char str[]){
     
     int i,containChar;
@@ -342,6 +397,11 @@ int containsSymbol(char str[]){
     return containChar;
     
 }
+//18
+//function to display user statistics
+//input : an array of users and the size
+//output : print the total number of users, number of admins and number of blocked users
+
 void userStatistics(struct User users[], int n){
     int countBlocked,countAdmins,i;
     countAdmins=0;
@@ -367,6 +427,10 @@ void userStatistics(struct User users[], int n){
     printf("Number of blocked users: %d\n",countBlocked);
     
 }
+//19
+//function to save users to a file
+//input : an array of users and the size
+//output : save the users to a file named "users.txt"
 
 void saveUsers(struct User users[], int n){
     int i;
@@ -380,16 +444,30 @@ void saveUsers(struct User users[], int n){
     fclose(file);
     
 }
-
+//20
+//function to load users from a file
+//input : an array of users and the size
+//output : load the users from a file named "users.txt"
 void loadUsers(struct User users[], int n){
     int i;
     FILE *file;
-    file = fopen("users.txt", "r");
+    file = fopen("users.txt", "r")// open the file in read mode
+    if (file == NULL) {
+        // this for checking if the file invalid or non-existent address.
+        // if the file is not found, it will return NULL
+        // and we will print an error message
+        printf("Error opening file!\n");
+        return;
+        // exit the function if the file cannot be opened directely
+    }
     for ( i = 0; i < n; i++)
     {
         fscanf(file, "%s %s %d %d", users[i].name, users[i].password, &users[i].role, &users[i].state);
+        //fscanf reads formatted input from a file
+        //we read the name, password, role and state of the user
     }
-    fclose(file);          
+    fclose(file);   
+    //close the file after reading       
 }
 
 void _searchUser(){
