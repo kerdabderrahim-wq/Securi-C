@@ -38,12 +38,6 @@ void initUsers(struct User users[], int n){
             break;
             
         }
-
-
-
-
-
-
     }
 
 }

@@ -293,6 +293,7 @@ int countCharacter(struct Message m, char c){
     }
     return count_char;
 }
+//19
 //description : a procedure that calculate the frequency of each letter in a message  
 // input : a Message struct
 // output : none (the function prints the frequency of each letter to the console) 
@@ -318,6 +319,7 @@ void frequencyAnalysis(struct Message m){
             
     }
 }
+//20
 //description : a function that calculate the coincidence index of a message
 // input : a Message struct
 // output : the coincidence index as a float value

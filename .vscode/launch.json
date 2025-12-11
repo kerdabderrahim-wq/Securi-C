@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Dell/project_algorithm/Securi-C/Math & Security Tools",
-      "program": "c:/Users/Dell/project_algorithm/Securi-C/Math & Security Tools/build/Debug/outDebug",
+      "cwd": "c:/Users/Dell/project_algorithm/Securi-C/Security audit and analysis",
+      "program": "c:/Users/Dell/project_algorithm/Securi-C/Security audit and analysis/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
