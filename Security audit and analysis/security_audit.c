@@ -340,9 +340,7 @@ int checkLoginFormat(char name[]){
         if (!((name[i]>='0' && name[i]<='9')||(name[i]>='A' && name[i]<='Z')||(name[i]>='a' && name[i]<='z')))
         {
             return 0;
-        }
-
-        
+        }    
     }
     if (i==0)
     {
@@ -351,16 +349,65 @@ int checkLoginFormat(char name[]){
     return 1;
 
 }
+
 void generateHexKey(int length, char key[]){
+    
+}
+void sortScore(struct User users[], int n){
+    int i,isOrdered;
+    struct User temp;
+    isOrdered=1;
+    for ( i = 0; i < n-1; i++){
+        if(passwordScore(users[i].password)<passwordScore(users[i+1].password)){
+            temp=users[i];
+            users[i]=users[i+1];
+            users[i+1]=temp;
+            isOrdered=0;
+        }
+        
+    }
+    if (isOrdered!=1){
+        sortScore(users,n);
+
+    }
+    
+}
+//19
+//description : a procedure that displays the top 3 strongest passwords from an array of users
+// input : an array of User structs and the number of users
+// output : none (the function prints the top 3 passwords to the console)
+void top3Passwords(struct User users[], int n){
+    int i;
+    sortScore( users,n);
+    for ( i = 0; i < n  && i<3; i++){
+        printf("the top %d password is : %s score : %d\n ",i+1,users[i].password, passwordScore(users[i].password));
+    }
+    
+}
+
+int globalSecurityLevel(struct User users[], int n){
     
 }
 int main(){
     
     char key[100];
     //test averige score
-    struct User users[3]={{"Alice","P",0,0},{"Bob","Str0ng#Pass",1,0},{"Charlie","weakuoyghiu,ybupass",0,0}};
-    printf("%d",checkEmailFormat("yuguvyfvuygv@.fguvu"));
+    //10 users
+    struct User users[10]={
+        {"alice","Password123!",0,0},
+        {"bob","qwerty",0,0},
+        {"charlie","StrongPass1@",1,0},
+        {"dave","12345678",0,1},
+        {"eve","MySecurePwd#2023",1,0},
+        {"frank","letmein",0,0},
+        {"grace","Admin@1234",1,0},
+        {"heidi","welcome",0,1},
+        {"ivan","P@ssw0rd!",0,0},
+        {"judy","userpass",0,0}};
+    top3Passwords(users,10);
     return 0;
+
 }
+
 
 

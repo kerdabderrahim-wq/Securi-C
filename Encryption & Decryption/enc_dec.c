@@ -339,6 +339,187 @@ float coincidenceIndex(struct Message m){
 
     }
     return ((result)/(n*(n-1)));
-    
 }
 
+
+//============================================================================================================================
+// extra function of the cli
+//============================================================================================================================
+void _isUppercase(){
+    char c;
+    printf("Enter a character : ");
+    scanf(" %c",&c);
+    if(isUppercase(c)){
+        printf("yes is uppercase");
+    }
+    else{
+        printf("no it is not uppercase");
+    }
+}
+void _isLowercase(){
+    char c;
+    printf("Enter a character : ");
+    scanf(" %c",&c);
+    if(isLowercase(c)){
+        printf("yes is lowercase");
+    }
+    else{
+        printf("no it is not lowercase");
+    }
+}
+void _isAlphabetic(){
+    char c;
+    printf("Enter a character : ");
+    scanf(" %c",&c);
+    if(isAlphabetic(c)){
+        printf("yes is alphabetic");
+    }
+    else{
+        printf("no it is not alphabetic");
+    }
+}
+void _toUppercase(){
+    struct Message m;
+    inputMessage(&m);
+    toUppercase(&m);
+    printf("The message in uppercase is : ");
+    displayMessage(m);
+}
+
+void _toLowercase(){
+    struct Message m;
+    inputMessage(&m);
+    toLowercase(&m);
+    printf("The message in lowercase is : ");
+    displayMessage(m);
+}
+void _reverseMessage(){
+    struct Message m;
+    inputMessage(&m);
+    reverseMessage(&m);
+    printf("The reversed message is : ");
+    displayMessage(m);
+}
+void _removeSpaces(){
+    struct Message m;
+    inputMessage(&m);
+    removeSpaces(&m);
+    printf("The message without spaces is : ");
+    displayMessage(m);
+}
+void _encryptCesar(){
+    struct Message m;
+    int key;
+    inputMessage(&m);
+    printf("Enter the key (an integer): ");
+    scanf("%d",&key);
+    encryptCesar(&m,key);
+    printf("The encrypted message is : ");
+    displayMessage(m);
+}
+void _decryptCesar(){
+    struct Message m;
+    int key;
+    inputMessage(&m);
+    printf("Enter the key (an integer): ");
+    scanf("%d",&key);
+    decryptCesar(&m,key);
+    printf("The decrypted message is : ");
+    displayMessage(m);
+}
+void _encryptXOR(){
+    struct Message m;
+    int key;
+    inputMessage(&m);
+    printf("Enter the key (an integer): ");
+    scanf("%d",&key);
+    encryptXOR(&m,key);
+    printf("The encrypted message is : ");
+    displayMessage(m);
+}
+void _decryptXOR(){
+    struct Message m;
+    int key;
+    inputMessage(&m);
+    printf("Enter the key (an integer): ");
+    scanf("%d",&key);
+    decryptXOR(&m,key);
+    printf("The decrypted message is : ");
+    displayMessage(m);
+}
+void _encryptSubstitution(){
+    struct Message m;
+    char key[27];
+    inputMessage(&m);
+    printf("Enter the substitution key (26 alphabetic characters): ");
+    scanf(" %26s",key);
+    if (isValidKey(key)){
+        encryptSubstitution(&m,key);
+        printf("The encrypted message is : ");
+        displayMessage(m);
+    }else{
+        printf("Invalid key!!!!!!!!!!!!!!! Please ensure it contains 26 unique alphabetic characters \n");
+    }
+}
+void _decryptSubstitution(){
+    struct Message m;
+    char key[27];
+    inputMessage(&m);
+    printf("Enter the substitution key (26 alphabetic characters): ");
+    scanf(" %26s",key);
+    if (isValidKey(key)){
+        decryptSubstitution(&m,key);
+        printf("The decrypted message is : ");
+        displayMessage(m);
+    }else{
+        printf("Invalid key! Please ensure it contains 26 unique alphabetic characters \n");
+    }
+}
+void _isValidKey(){
+    char key[27];
+    printf("Enter the substitution key (26 alphabetic characters): ");
+    scanf(" %26s",key);
+    if (isValidKey(key)){
+        printf("The key is valid.\n");
+    }else{
+        printf("The key is invalid.\n");
+    }
+}
+void _compareMessages(){
+    struct Message m1,m2;
+    printf("Enter the first message:\n");
+    inputMessage(&m1);
+    printf("Enter the second message:\n");
+    inputMessage(&m2);
+    if (compareMessages(m1,m2)){
+        printf("The messages are equal.\n");
+    }else{
+        printf("The messages are not equal.\n");
+    }
+}
+void _countCharacter(){
+    struct Message m;
+    char c;
+    int count;
+    inputMessage(&m);
+    printf("Enter the character to count: ");
+    scanf(" %c",&c);
+    count=countCharacter(m,c);
+    printf("The character '%c' appears %d times in the message.\n",c,count);
+}
+void _frequencyAnalysis(){
+    struct Message m;
+    inputMessage(&m);
+    printf("Frequency analysis of the message:\n");
+    frequencyAnalysis(m);
+}
+void _coincidenceIndex(){
+    struct Message m;
+    float index;
+    inputMessage(&m);
+    index=coincidenceIndex(m);
+    printf("The coincidence index of the message is : %.6f\n",index);
+}
+//============================================================================================================================
+// end of extra function of the cli
+//============================================================================================================================
