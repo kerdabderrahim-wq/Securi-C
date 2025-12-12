@@ -1,3 +1,4 @@
+
 int isEven(int a);
 int isPrime(int a);
 int gcd(int a,int b);
