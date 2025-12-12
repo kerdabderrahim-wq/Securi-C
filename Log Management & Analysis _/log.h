@@ -7,7 +7,7 @@ struct Log{
 };
 void initLogs(struct Log logs[], int n); 
 void addLog(struct Log logs[], int n, char user[], char action[], int code);
-    void displayLogs(struct Log logs[], int n);
+void displayLogs(struct Log logs[], int n);
 void searchLogsByUser(struct Log logs[], int n, char user[]);
 void searchLogsByDate(struct Log logs[], int n, char date[]);
 int countErrorLogs(struct Log logs[], int n);
