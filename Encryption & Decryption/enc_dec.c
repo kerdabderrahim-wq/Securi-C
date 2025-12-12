@@ -335,10 +335,10 @@ float coincidenceIndex(struct Message m){
         n=n+f;
     
         // to calculate the total number of letters in the message
-        //the formula for coincidence index is :
-        //IC = sum(f_i * (f_i - 1)) / (n * (n - 1))
-        //where f_i is the frequency of each letter and n is the total number of letters
-    
+        // we ignore non-alphabetic characters
+        //the coincidence index formula is :
+        // IC = sum(f_i * (f_i - 1)) / (n * (n - 1))
+        // where f_i is the frequency of letter i and n is the total number of letters
 
     }
     return ((result)/(n*(n-1)));
