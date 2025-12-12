@@ -328,14 +328,17 @@ float coincidenceIndex(struct Message m){
     result=0;
     n=0;
 
-    for ( i = 0; i < 26; i++)
-    {
+    for ( i = 0; i < 26; i++){
         f=countCharacter(m,i+'a')+countCharacter(m,i+'A');
         // this to count both lowercase and uppercase letters if there exist
         result=result+f*(f-1);
         n=n+f;
+    
         // to calculate the total number of letters in the message
-        
+        //the formula for coincidence index is :
+        //IC = sum(f_i * (f_i - 1)) / (n * (n - 1))
+        //where f_i is the frequency of each letter and n is the total number of letters
+    
 
     }
     return ((result)/(n*(n-1)));
