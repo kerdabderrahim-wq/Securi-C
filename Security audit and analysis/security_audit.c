@@ -386,7 +386,7 @@ void top3Passwords(struct User users[], int n){
 }
 
 int globalSecurityLevel(struct User users[], int n){
-    
+
 }
 int main(){
     
@@ -409,5 +409,12 @@ int main(){
 
 }
 
-
+//==============================================================================================================================================
+// extra functions of the encryption and decryption cli
+//========================================================================================================================================================
+void _countUppercase(){
+    char text[400];
+    int count;
+    printf("Enter the text:\n");
+}
 
