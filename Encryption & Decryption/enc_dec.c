@@ -72,6 +72,7 @@ void toLowercase(struct Message *m){
     for (i = 0; i < m->length; i++) {
         if (isUppercase(m->text[i])) {
             m->text[i] = m->text[i] + ('a' - 'A');
+        // this ('a' - 'A') means the difference between the ASCII values of 'a' and 'A' and it is 32 and we add it to convert to lowercase    
         }
     }
 }
@@ -84,6 +85,7 @@ void reverseMessage(struct Message *m){
     struct Message s=*m;
     for ( i = 0; i < m->length; i++){
         s.text[i]=m->text[m->length-1-i];
+        //-1 because the index starts from 0
     }
     *m=s;
     
