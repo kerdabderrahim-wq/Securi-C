@@ -55,7 +55,8 @@ int isAlphabetic(char c){
 // input : a Message struct
 // output : none (the function modifies the struct in place)
 void toUppercase(struct Message *m){
-    for (int i = 0; i < m->length; i++) {
+    int i;
+    for (i = 0; i < m->length; i++) {
         if (isLowercase(m->text[i])) {
             m->text[i] = m->text[i] - ('a' - 'A'); // we need to understande it //
         }
@@ -67,7 +68,8 @@ void toUppercase(struct Message *m){
 // input : a Message struct
 // output : none (the function modifies the struct in place)
 void toLowercase(struct Message *m){
-    for (int i = 0; i < m->length; i++) {
+    int i;
+    for (i = 0; i < m->length; i++) {
         if (isUppercase(m->text[i])) {
             m->text[i] = m->text[i] + ('a' - 'A');
         }
