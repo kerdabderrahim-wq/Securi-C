@@ -12,7 +12,7 @@ void inputMessage(struct Message *m){
     printf("enter your message: ");
     scanf(" %[^\n]",(*m).text);
     m->length=0;
-    for (int i = 0; m->text[i]!='\0'; i++){
+    for (i = 0; m->text[i]!='\0'; i++){
         m->length++;
     }
 

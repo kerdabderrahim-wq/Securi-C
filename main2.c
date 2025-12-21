@@ -1,8 +1,14 @@
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include "Math & Security Tools/maths.h"
+
 
 int main() {
     int choice;
+    printf("%d",isEven(4));
     printf("\n");
     printf("   _____                     _        _____ \n");
     printf("  / ____|                   (_)      / ____|\n");

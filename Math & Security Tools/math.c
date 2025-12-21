@@ -364,21 +364,18 @@ int minArray(int T[], int n) {
 //output : the array T sorted in ascending order
 void sortAscending(int T[], int n){
     int i,isSorted,tmp;
-    isSorted=1;
-    for(i = 0; i <n-1; i++){
-        if(T[i]>T[i+1]){
-            tmp=T[i];
-            T[i]=T[i+1];
-            T[i+1]=tmp;
-            isSorted=0;
+    isSorted=0;
+    while (!isSorted){
+        isSorted=1;
+        for(i = 0; i <n-1; i++){
+            if(T[i]>T[i+1]){
+                tmp=T[i];
+                T[i]=T[i+1];
+                T[i+1]=tmp;
+                isSorted=0;
+            }
         }
     }
-    
-    if (isSorted!=1){
-        sortAscending(T,n);
-    }
-    
-
 }
 //19
 //display matrix function
@@ -753,11 +750,5 @@ void _isIdentity(){
     }
 }
 
-int main(){
-    struct Matrix M;
-    inputMatrix(&M);
-    displayMatrix(M);
-    
-    
-    return 0;
-}
+
+//==============================================================================================================================================

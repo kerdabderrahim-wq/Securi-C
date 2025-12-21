@@ -1,3 +1,10 @@
+#ifndef MATHS_H
+#define MATHS_H
+struct Matrix{
+    int rows;
+    int cols;
+    int data[10][10];
+};
 
 int isEven(int a);
 int isPrime(int a);
@@ -29,3 +36,4 @@ int isIdentity(struct Matrix M);
 
 
 
+#endif/* MATHS_H */

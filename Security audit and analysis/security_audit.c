@@ -388,11 +388,188 @@ void top3Passwords(struct User users[], int n){
 int globalSecurityLevel(struct User users[], int n){
 
 }
-int main(){
+
+
+//==============================================================================================================================================
+// extra functions of the encryption and decryption cli
+//========================================================================================================================================================
+void _countUppercase(){
+    char text[400];
+    printf("Enter the text:\n");
+    //%[^\n] means read until newline
+    scanf(" %[^\n]",text);
+    printf("The number of uppercase letters is : %d\n",countUppercase(text));
+}
+void _countLowercase(){
+    char text[400];
+    printf("Enter the text:\n");
+    scanf(" %[^\n]",text);
+    printf("The number of lowercase letters is : %d\n",countLowercase(text));
+}
+void _countDigits(){
+    char text[400];
+    printf("Enter the text:\n");
+
+    scanf(" %[^\n]",text);
+    printf("The number of digits is : %d\n",countDigits(text));
+}
+void _percentUppercase(){
+    char text[400];
+    printf("Enter the text:\n");
+    scanf(" %[^\n]",text);
+    printf("The percentage of uppercase letters is : %.2f%%\n",percentUppercase(text));
+}
+void _textLength(){
+    char text[400];
+    printf("Enter the text:\n");
+    scanf(" %[^\n]",text);
+    printf("The length of the text is : %d\n",textLength(text));
+}
+void _veryStrongPassword(){
+    char pass[100];
+    printf("Enter the password:\n");
+    scanf(" %[^\n]",pass);
+    if (veryStrongPassword(pass))
+    {
+        printf("The password is very strong\n");
+    }else{
+        printf("The password is not very strong\n");
+    }
     
+}
+
+void _generateKey(){
+    int length;
     char key[100];
-    //test averige score
-    //10 users
+    printf("Enter the length of the key:\n");
+    scanf("%d",&length);
+    generateKey(length,key);
+    printf("The generated key is : %s\n",key);
+}
+
+void _isHexKey(){
+    char key[100];
+    printf("Enter the key:\n");
+    scanf(" %[^\n]",key);
+    if (isHexKey(key))
+    {
+        printf("The key is a valid hexadecimal key\n");
+    }else{
+        printf("The key is not a valid hexadecimal key\n");
+    }
+    
+}
+
+void _generateRandomPassword(){
+    int length;
+    char pass[100];
+    printf("Enter the length of the password:\n");
+    scanf("%d",&length);
+    generateRandomPassword(length,pass);
+    printf("The generated password is : %s\n",pass);
+}
+void _passwordScore(){
+    char pass[100];
+    printf("Enter the password:\n");
+    scanf(" %[^\n]",pass);
+    printf("The password strength score is : %d\n",passwordScore(pass));
+}
+void _averageScore(){
+    struct User users[100];
+    int n,i;
+    printf("Enter the number of users:\n");
+    scanf("%d",&n);
+    for ( i = 0; i < n; i++)
+    {
+        printf("Enter the name of user %d:\n",i+1);
+        scanf(" %[^\n]",users[i].name);
+        printf("Enter the password of user %d:\n",i+1);
+        scanf(" %[^\n]",users[i].password);
+    }
+    printf("The average password strength score is : %.2f\n",averageScore(users,n));
+}
+void _countStrongUsers(){
+    struct User users[100];
+    int n,i;
+    printf("Enter the number of users:\n");
+    scanf("%d",&n);
+    for ( i = 0; i < n; i++)
+    {
+        printf("Enter the name of user %d:\n",i+1);
+        scanf(" %[^\n]",users[i].name);
+        printf("Enter the password of user %d:\n",i+1);
+        scanf(" %[^\n]",users[i].password);
+    }
+    printf("The number of users with strong passwords is : %d\n",countStrongUsers(users,n));
+}
+void _checkEmailFormat(){
+    char email[100];
+    printf("Enter the email address:\n");
+    scanf(" %[^\n]",email);
+    if (checkEmailFormat(email))
+    {
+        printf("The email format is valid\n");
+    }else{
+        printf("The email format is not valid\n");
+    }
+    
+}
+void _checkLoginFormat(){
+    char name[100];
+    printf("Enter the login name:\n");
+    scanf(" %[^\n]",name);
+    if (checkLoginFormat(name))
+    {
+        printf("The login format is valid\n");
+    }else{
+        printf("The login format is not valid\n");
+    }
+    
+}
+void _sortScore(){
+    struct User users[100];
+    int n,i;
+    printf("Enter the number of users:\n");
+    scanf("%d",&n);
+    for ( i = 0; i < n; i++)
+    {
+        printf("Enter the name of user %d:\n",i+1);
+        scanf(" %[^\n]",users[i].name);
+        printf("Enter the password of user %d:\n",i+1);
+        scanf(" %[^\n]",users[i].password);
+    }
+    sortScore(users,n);
+    printf("Users sorted by password strength score successfully\n");
+}
+void _top3Passwords(){
+    struct User users[100];
+    int n,i;
+    printf("Enter the number of users:\n");
+    scanf("%d",&n);
+    for ( i = 0; i < n; i++)
+    {
+        printf("Enter the name of user %d:\n",i+1);
+        scanf(" %[^\n]",users[i].name);
+        printf("Enter the password of user %d:\n",i+1);
+        scanf(" %[^\n]",users[i].password);
+    }
+    top3Passwords(users,n);
+}
+void _displaySecurityReport(){
+    struct User users[100];
+    int n,i;
+    printf("Enter the number of users:\n");
+    scanf("%d",&n);
+    for ( i = 0; i < n; i++)
+    {
+        printf("Enter the name of user %d:\n",i+1);
+        scanf(" %[^\n]",users[i].name);
+        printf("Enter the password of user %d:\n",i+1);
+        scanf(" %[^\n]",users[i].password);
+    }
+    displaySecurityReport(users,n);
+}
+void main(){
     struct User users[10]={
         {"alice","Password123!",0,0},
         {"bob","qwerty",0,0},
@@ -404,17 +581,6 @@ int main(){
         {"heidi","welcome",0,1},
         {"ivan","P@ssw0rd!",0,0},
         {"judy","userpass",0,0}};
-    top3Passwords(users,10);
-    return 0;
-
+        _countUppercase();
+   
 }
-
-//==============================================================================================================================================
-// extra functions of the encryption and decryption cli
-//========================================================================================================================================================
-void _countUppercase(){
-    char text[400];
-    int count;
-    printf("Enter the text:\n");
-}
-

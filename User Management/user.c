@@ -229,6 +229,8 @@ void blockUser(struct User users[], int n, char name[]){
         users[index].state=1;
         //set the state to blocked
         printf("User %s blocked successfully\n", users[index].name);
+    }else{
+        printf("user not found");
     }
     
 }
@@ -246,7 +248,7 @@ void unblockUser(struct User users[], int n, char name[]){
     }
     
     if (index!=-1)
-    {
+    {   printf("User %s unblocked successfully\n", users[index].name);
         users[index].state=0; // change the state 
     }
     
@@ -264,8 +266,8 @@ void changeRole(struct User users[], int n, char name[], int role){
         printf("user not found");
     }
     // the case if the user is found
-    if (index!=-1)
-    {
+    if (index!=-1){   
+        printf("User %s role changed successfully to %s\n", users[index].name, role == 0 ? "User" : "Admin");
         users[index].role=role;
     }
     
@@ -309,40 +311,36 @@ int stringLength(char str[]){
 //input : a string
 //output : 1 if it contains uppercase letters, 0 otherwise
 int containsUppercase(char str[]){
-    int i,isuppercase;
+    int i;
     i=0;
-    
-    isuppercase=0;
+
     while (str[i]!='\0')
     {
         if (str[i]>='A' && str[i]<='Z')
         {
-            isuppercase=1;
-            break;
+            return 1;
         }
         i=i+1;
     }
-    return isuppercase;
+    return 0;
 }
 //15
 //function to check if a string contains lowercase letters
 //input : a string
 //output : 1 if it contains lowercase letters, 0 otherwise
 int containsLowercase(char str[]){
-    int i,islowercase;
+    int i;
     i=0;
     
-    islowercase=0;
     while (str[i]!='\0')
     {
         if (str[i]>='a' && str[i]<='z')
         {
-            islowercase=1;
-            break;
+            return 1;
         }
         i=i+1;
     }
-    return islowercase;
+    return 0;
 
 }
 //16
@@ -350,10 +348,8 @@ int containsLowercase(char str[]){
 //input : a string
 //output : 1 if it contains digits, 0 otherwise
 int containsDigit(char str[]){
-    int i,containDigit;
+    int i;
     i=0;
-    
-    containDigit=0;
     
     while (str[i]!='\0')
     {
@@ -361,11 +357,11 @@ int containsDigit(char str[]){
         //Contains at least one digit
         if (str[i]>='0' && str[i]<='9')
         {
-            containDigit=1;
+            return 1;
         }
         i=i+1;
     }
-    return containDigit;
+    return 0;
 }
 //17
 //function to check if a string contains symbols    
@@ -373,22 +369,19 @@ int containsDigit(char str[]){
 //output : 1 if it contains symbols, 0 otherwise
 int containsSymbol(char str[]){
     
-    int i,containChar;
-    
-    
-    containChar=0;
+    int i;
+ 
 
     i=0;
     while (str[i]!='\0'){
         if(!(str[i]>='0' && str[i]<='9') && !(str[i]>='a' && str[i]<='z') && !(str[i]>='A' && str[i]<='Z')){
-            containChar=1;
-            break;
+            return 1;
         }
         i++;
     }
     
     
-    return containChar;
+    return 0;
     
 }
 //18
@@ -445,7 +438,7 @@ void saveUsers(struct User users[], int n){
 void loadUsers(struct User users[], int n){
     int i;
     FILE *file;
-    file = fopen("users.txt", "r")// open the file in read mode
+    file = fopen("users.txt", "r");// open the file in read mode
     if (file == NULL) {
         // this for checking if the file invalid or non-existent address.
         // if the file is not found, it will return NULL
@@ -463,6 +456,9 @@ void loadUsers(struct User users[], int n){
     fclose(file);   
     //close the file after reading       
 }
+//===============================================================================================================================
+//===========================CLI functions=========================================================================================
+//===============================================================================================================================1
 
 void _searchUser(){
     struct User users[199];
@@ -481,6 +477,154 @@ void _searchUser(){
         printf("user not found");
     }
     
+}
+
+void _checkLogin(){
+    struct User users[199];
+    int n;
+    char name[20],pass[20];
+    printf("Enter number of users:");
+    scanf("%d",&n);
+    initUsers(users,n);
+    printf("Enter username:");
+    scanf("%s",name);
+    printf("Enter password:");
+    scanf("%s",pass);
+    if (checkLogin(users,n,name,pass))
+    {
+        printf("Login successful");
+    }else{
+        printf("Login failed");
+    }       
+    
+}
+void _strongPassword(){
+    char pass[50];
+    printf("Enter password to check:");
+    scanf("%s",pass);
+    if (strongPassword(pass))
+    {
+        printf("Password is strong");
+    }else{
+        printf("Password is weak");
+    }       
+    
+}
+void _blockUser(){
+    struct User users[199];
+    int n;
+    char name[20];
+    printf("Enter number of users:");
+    scanf("%d",&n);
+    initUsers(users,n);
+    printf("Enter the name to block:");
+    scanf("%s",name);
+    blockUser(users,n,name);
+}
+
+void _unblockUser(){
+    struct User users[199];
+    int n;
+    char name[20];
+    printf("Enter number of users:");
+    scanf("%d",&n);
+    initUsers(users,n);
+    printf("Enter the name to unblock:");
+    scanf("%s",name);
+    unblockUser(users,n,name);
+}
+void _changeRole(){
+    struct User users[199];
+    int n,role;
+    char name[20];
+    printf("Enter number of users:");
+    scanf("%d",&n);
+    initUsers(users,n);
+    printf("Enter the name to change role:");
+    scanf("%s",name);
+    printf("Enter the new role (0 user , 1 admin):");
+    scanf("%d",&role);
+    changeRole(users,n,name,role);
+}
+void _stringLength(){
+    char str[100];
+    printf("Enter the string:");
+    scanf("%s",str);
+    printf("The length of the string is: %d",stringLength(str));
+}
+void _containsUppercase(){
+    char str[100];
+    printf("Enter the string:");
+    scanf("%s",str);
+    if (containsUppercase(str))
+    {
+        printf("The string contains uppercase letters");
+    }else{
+        printf("The string does not contain uppercase letters");
+    }       
+    
+}
+void _containsLowercase(){
+    char str[100];
+    printf("Enter the string:");
+    scanf("%s",str);
+    if (containsLowercase(str))
+    {
+        printf("The string contains lowercase letters");
+    }else{
+        printf("The string does not contain lowercase letters");
+    }       
+    
+}
+void _containsDigit(){
+    char str[100];
+    printf("Enter the string:");
+    scanf("%s",str);
+    if (containsDigit(str))
+    {
+        printf("The string contains digits");
+    }else{
+        printf("The string does not contain digits");
+    }       
+    
+}
+void _containsSymbol(){
+    char str[100];
+    printf("Enter the string:");
+    scanf("%s",str);
+    if (containsSymbol(str))
+    {
+        printf("The string contains symbols");
+    }else{
+        printf("The string does not contain symbols");
+    }       
+    
+}
+void _userStatistics(){
+    struct User users[199];
+    int n;
+    printf("Enter number of users:");
+    scanf("%d",&n);
+    initUsers(users,n);
+    userStatistics(users,n);
+}
+void _saveUsers(){
+    struct User users[199];
+    int n;
+    printf("Enter number of users:");
+    scanf("%d",&n);
+    initUsers(users,n);
+    saveUsers(users,n);
+    printf("Users saved successfully to users.txt");
+}
+void _loadUsers(){
+    struct User users[199];
+    int n;
+    printf("Enter number of users to load:");
+    scanf("%d",&n);
+    loadUsers(users,n);
+    printf("Users loaded successfully from users.txt\n");
+    displayUsers(users,n);
 }
 
 int main (){
