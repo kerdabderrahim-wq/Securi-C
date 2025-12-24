@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "../Encryption & Decryption/enc_dec.h"
-struct User{ 
+struct User{
     char name[20]; 
     char password[20]; 
     int role;   // 0: user, 1: admin 
@@ -138,29 +138,13 @@ Return 1 if very strong, 0 otherwise.*/
 
 
 }
+void generateRandomPassword(int length, char pass[]);
 //8
 //description : a procedure that generates a random key of specified length
 // input : an integer length and a character array key to store the generated key
 // output : none (the function modifies the key array in place)
 void generateKey(int length, char key[]){
-    int i,random ;
-    srand(time(0)); 
-
-    for ( i = 0; i < length; i++)
-    {
-        random=rand()%16;
-        if (random<=9)
-        {
-            key[i]=('0'+random);
-            // '0' the char of 0 in ascii code
-        }
-        else{
-            key[i]=('A'+(random-10));
-   
-        }
-        
-    }
-    key[length]='\0';
+    generateRandomPassword(length,key);
 }
 //9
 //description : a function that checks if a given key is a valid hexadecimal key
@@ -184,7 +168,7 @@ int isHexKey(char key[]){
 // output : none (the function modifies the pass array in place)
 void generateRandomPassword(int length, char pass[]){
 
-int random ,i;
+    int random ,i;
     srand(time(0)); 
     // to initialize the random number generator with the current time as seed
     
@@ -327,7 +311,7 @@ int checkEmailFormat(char email[]){
 // input : a string (character array) representing the login name
 // output : 1 if the login format is valid, 0 otherwise
 int checkLoginFormat(char name[]){
-    /*1. It is not Empty
+/*1. It is not Empty
 2. It has No Spaces
 3. It contains Only Letters and Numbers*/
     int i;
@@ -351,26 +335,30 @@ int checkLoginFormat(char name[]){
 }
 
 void generateHexKey(int length, char key[]){
+    int i,random;
+    srand(time(0));
+    for ( i = 0; i < length; i++){
+        random=rand()%16;
+        if (random<10){
+            key[i]='0'+random;
+        }else{
+            key[i]='A'+(random-10);
+        }
+    }
     
 }
-void sortScore(struct User users[], int n){
-    int i,isOrdered;
+void sortScore(struct User users[], int n) {
+    int i, j;
     struct User temp;
-    isOrdered=1;
-    for ( i = 0; i < n-1; i++){
-        if(passwordScore(users[i].password)<passwordScore(users[i+1].password)){
-            temp=users[i];
-            users[i]=users[i+1];
-            users[i+1]=temp;
-            isOrdered=0;
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - i - 1; j++) {
+            if (passwordScore(users[j].password) < passwordScore(users[j + 1].password)) {
+                temp = users[j];
+                users[j] = users[j + 1];
+                users[j + 1] = temp;
+            }
         }
-        
     }
-    if (isOrdered!=1){
-        sortScore(users,n);
-
-    }
-    
 }
 //19
 //description : a procedure that displays the top 3 strongest passwords from an array of users
@@ -386,7 +374,11 @@ void top3Passwords(struct User users[], int n){
 }
 
 int globalSecurityLevel(struct User users[], int n){
-
+    // Implementation
+    float avg = averageScore(users, n);
+    if(avg >= 5) return 1; // High
+    if(avg >= 3) return 2; // Medium
+    return 3; // Low
 }
 
 
@@ -569,18 +561,19 @@ void _displaySecurityReport(){
     }
     displaySecurityReport(users,n);
 }
-void main(){
-    struct User users[10]={
-        {"alice","Password123!",0,0},
-        {"bob","qwerty",0,0},
-        {"charlie","StrongPass1@",1,0},
-        {"dave","12345678",0,1},
-        {"eve","MySecurePwd#2023",1,0},
-        {"frank","letmein",0,0},
-        {"grace","Admin@1234",1,0},
-        {"heidi","welcome",0,1},
-        {"ivan","P@ssw0rd!",0,0},
-        {"judy","userpass",0,0}};
-        _countUppercase();
-   
+
+void _globalSecurityLevel(){
+    struct User users[100];
+    int n,i;
+    printf("Enter the number of users:\n");
+    scanf("%d",&n);
+    for ( i = 0; i < n; i++)
+    {
+        printf("Enter the name of user %d:\n",i+1);
+        scanf(" %[^\n]",users[i].name);
+        printf("Enter the password of user %d:\n",i+1);
+        scanf(" %[^\n]",users[i].password);
+    }
+    int level = globalSecurityLevel(users, n);
+    printf("Global Security Level: %s\n", level == 1 ? "High" : (level == 2 ? "Medium" : "Low"));
 }

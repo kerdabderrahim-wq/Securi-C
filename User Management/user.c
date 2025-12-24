@@ -6,6 +6,9 @@ struct User{
     int role;   // 0: user, 1: admin 
     int state;  // 0: active, 1: blocked 
 };
+struct User users[100];
+int userCount = 0;
+//the function is needed before
 int searchUser(struct User users[], int n, char name[]);
 //1
 //function to initialize an array of users
@@ -21,23 +24,18 @@ void initUsers(struct User users[], int n){
         //we use %s to read strings
         printf("Enter the user %d password :",i+1);
         scanf("%s",users[i].password);
-        printf("Enter the user %d role (0 user , 1 admin) :",i+1);
-        scanf("%d",&users[i].role);
-        if (users[i].role!=0  && users[i].role!=1)
-        {
-            printf("error");
-            break;
-            
+        do{
+            printf("Enter the user %d role (0 user , 1 admin) :",i+1);
+            scanf("%d",&users[i].role);
         }
+        while(users[i].role!=0  && users[i].role!=1);
         
-        printf("Enter the user %d state (0: active, 1: blocked ) :",i+1);
-        scanf("%d",&users[i].state);
-        if (users[i].state!=0  && users[i].state!=1)
-        {
-            printf("error");
-            break;
-            
+        do{
+            printf("Enter the user %d state (0 active , 1 blocked) :",i+1);
+            scanf("%d",&users[i].state);
         }
+        while(users[i].state!=0  && users[i].state!=1);
+
     }
 
 }
@@ -459,7 +457,31 @@ void loadUsers(struct User users[], int n){
 //===============================================================================================================================
 //===========================CLI functions=========================================================================================
 //===============================================================================================================================1
-
+void _initUsers(){
+    printf("Enter number of users to initialize: ");
+    scanf("%d",&userCount);
+    initUsers(users,userCount);
+}
+void _displayUsers(){
+    displayUsers(users,userCount);
+}
+void _addUser(){
+    addUser(users,userCount);
+    userCount++;
+}
+void _deleteUser(){
+    char name[20];
+    printf("Enter the name of the user to delete: ");
+    scanf("%s",name);
+    deleteUser(users,userCount,name);
+    userCount--;
+}
+void _changePassword(){
+    char name[20];
+    printf("Enter the name of the user to change password: ");
+    scanf("%s",name);
+    changePassword(users,userCount,name);
+}
 void _searchUser(){
     struct User users[199];
     int n;
@@ -627,10 +649,3 @@ void _loadUsers(){
     displayUsers(users,n);
 }
 
-int main (){
-    int n;
-    struct User hello[199];
-    loadUsers(hello,3);
-    displayUsers(hello,3);
-    return 0;
-}
