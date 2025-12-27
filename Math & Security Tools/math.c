@@ -48,7 +48,12 @@ int isPrime(int a){
     return 1;
     
 }
-
+int abs(int n){
+    if(n<0){
+        return -n;
+    }
+    return n;
+}
 //3
 /*
 description: a function that return the gcd of two integer 
@@ -95,7 +100,6 @@ int power(int base,int exp){
 //input :the base and the exp and mod
 //output : base^exp MOD mod
 int modExp(int base, int exp, int mod){
-    
     return (power(base%mod,exp))%mod;
     // try 1 10 1000//
 }
@@ -125,7 +129,7 @@ int factorial(int n){
 //input : an integer n
 //output : sum of digits of n
 int sumDigits(int n){
-    int i,sum_dig,current_dig;
+    int sum_dig,current_dig;
     sum_dig=0;
 
     while (n>0)
@@ -144,47 +148,28 @@ int sumDigits(int n){
 //description reverse number function
 //input : an integer n  
 //output : the reverse of n
-int reverseNumber(int n)
-{
-    int rev , c_dig;
+int reverseNumber(int n){
+    int rev , c_dig,sign;
     rev=0;
+    sign=n/abs(n);
+    n=abs(n);
     while (n>0)
     {
         c_dig=n%10;
         rev=rev*10+c_dig;
         n=n/10;
     }
-    return rev;
+    return sign*rev;
     
 
 }
 
 //9
 //description palindrome function
-//input : an integer n  /
+//input : an integer n  
 //output : 1 if n is palindrome 0 otherwise
 int isPalindromeNumber(int n){
-    int c_dig,temp_n,rev;
-    temp_n=n;
-    rev=0;
-    if (n<0)
-    {
-        return 0;
-    }
-    
-    while (n>0)
-    {
-        c_dig=n%10;
-        rev=rev*10+c_dig;
-        n=n/10;
-    }
-
-    if(rev-temp_n==0){
-        return 1;
-    }else{
-        return 0;
-    }
-    
+    return reverseNumber(n)==n;    
 }
 
 
@@ -218,25 +203,8 @@ int sumDivisors(int n){
 //input : an integer n
 //output : 1 if n is perfect number 0 otherwise
 int isPerfectNumber(int n){
-    int s_div,i;
-    s_div=0;
-
-for(i=1;i<=n/2;i++){
-        if (n % i ==0)
-        {
-            s_div=s_div+i;
-        }
-            
-    }
-    
-    if (s_div==n)
-    {
-        return 1;
-    }
-    else{
-    return 0;
-    }
-    }
+    return (n==sumDivisors(n));
+}
 
 //12
 //description armstrong number function
@@ -248,14 +216,13 @@ int isArmstrong(int n){
     temp_n_1=n;
     temp_n_2=n;
     res=0;
-
+    //armstrong number : 𝑛=153 → 1³ + 5³ + 3³ = 153.
     while (temp_n_2>0)
     {
-        
-        num_dig = num_dig +1
-        ;
+        num_dig = num_dig +1;
         temp_n_2=temp_n_2/10;
     }
+    
     while (n>0)
     {
         power=1;
@@ -294,7 +261,7 @@ float randomNumber(int max , int min){
 }
 
 //14
-//description sum of array function
+//description : sum of array function
 //input : an array T of n integers
 //output : sum of the integers in T
 int sumArray(int T[],int n){
@@ -327,7 +294,7 @@ float averageArray(int T[], int n){
 //output : maximum of the integers in T
 int maxArray(int T[], int n) {
     int i,max;
-    max=INT_MIN ;
+    max=T[0];
     for ( i = 0; i < n; i++)
     {
         if (T[i]>max)
@@ -346,7 +313,7 @@ int maxArray(int T[], int n) {
 //output : minimum of the integers in T
 int minArray(int T[], int n) {
     int i,min;
-    min=INT_MAX ;
+    min=T[0] ;
     for ( i = 0; i < n; i++)
     {
         if (T[i]<min)
@@ -422,19 +389,24 @@ void addMatrices(struct Matrix A, struct Matrix B, struct Matrix *C){
 //matrix multiplication function
 //input : two matrices A and B of same dimensions n x p
 //output : matrix C which is the multiplication of A and B
-void  multiplyMatrices(struct Matrix A, struct Matrix B, struct Matrix *C){
-    int i,j;
-    for ( i = 0; i < A.n; i++)
-    {
-        for ( j = 0; j < A.p; j++)
-        {
-            C->data[i][j]=A.data[i][j]*B.data[i][j];
-            //  we use -> to access the data of the matrix C because C is a pointer//
+void multiplyMatrices(struct Matrix A, struct Matrix B, struct Matrix *C) {
+    int i, j, k;
+    C->n = A.n;
+    C->p = B.p;
 
-        } 
+    // A is (n x m), B is (m x p), Result C is (n x p)
+    for (i = 0; i < A.n; i++) {           // Loop through rows of A
+        for (j = 0; j < B.p; j++) {       // Loop through columns of B
+            
+            C->data[i][j] = 0;            // 1. Initialize the cell to 0
+            
+            for (k = 0; k < A.p; k++) {   // 2. The "inner" dimension loop
+                // 3. Add to the sum of products
+                C->data[i][j] += A.data[i][k] * B.data[k][j];
+            }
+        }
     }
-    
-}
+}   
 //22
 //matrix transpose function 
 //input : a matrix A of dimensions n x p
@@ -484,8 +456,8 @@ int isSymmetric(struct Matrix M){
 //output : 1 if M is identity 0 otherwise
 int isIdentity(struct Matrix M){
     int i,j;
-    for (int i = 0; i < M.n; i++){
-        for (int j = 0; j < M.p; j++){
+    for (i = 0; i < M.n; i++){
+        for (j = 0; j < M.p; j++){
             if ((j==i && M.data[i][j]!=1)||((j!=i && M.data[i][j]!=0))){
                 //if diagonal element not 1 or non diagonal element not 0//
                 return 0;
@@ -529,7 +501,7 @@ void _gcd(){
     int a,b;
     inputNumber(&a,"Enter the first number : ");
     inputNumber(&b,"Enter the second number : ");
-    outputNumber(gcd(a,b),"The gcd is :");
+    outputNumber(gcd(abs(a),abs(b)),"The gcd is :");
 }
 
 void _lcm(){
@@ -547,14 +519,16 @@ void _modExp(){
 }
 void _factorial(){
     int n;
-    inputNumber(&n,"Enter a number : ");
+    do{
+        inputNumber(&n,"Enter a non-negative integer : ");
+    }while(n<0);
     outputNumber(factorial(n),"The factorial is :");
 
 }
 void _sumDigits(){
     int n;
     inputNumber(&n,"Enter a number : ");
-    outputNumber(sumDigits(n),"The sum of digits is :");
+    outputNumber(sumDigits(abs(n)),"The sum of digits is :");
 }
 void _reverseNumber(){
     int n;
@@ -573,7 +547,7 @@ void _isPalindromeNumber(){
 void _sumDivisors(){
     int n;
     inputNumber(&n,"Enter a number : ");
-    outputNumber(sumDivisors(n),"The sum of divisors is :");
+    outputNumber(sumDivisors(abs(n)),"The sum of divisors is :");
 }
 void _isPerfectNumber(){
     int n;
@@ -595,7 +569,6 @@ void _isArmstrong(){
     else{
         printf("The number is not armstrong");
     }
-    
 
 }
 void _randomNumber(){
@@ -610,7 +583,7 @@ void inputArray(int T[],int *n){
     int i,temp;
     printf("Enter the number of  elements of array : ");
     scanf("%d",n);
-        for ( i = 0; i < *n; i++)
+    for ( i = 0; i < *n; i++)
     {   
         printf("Enter the number %d element : ",i+1);
         scanf("%d",&temp);
@@ -634,19 +607,18 @@ void _sumArray(){
     int T[100],n;
     inputArray(T,&n);
     outputNumber(sumArray(T,n),"The sum is : ");
-    
 
 }
 
 void _averageArray(){
     int T[100],n;
     inputArray(T,&n);
-    printf("The average is : %f\n",averageArray(T,n));
-    //we dont use output number because it works only with integers so we use printf
-
-    
-    
-
+    if(n!=0){
+        printf("The average is : %f\n",averageArray(T,n));
+        //we dont use output number because it works only with integers so we use printf
+    }else{
+        printf("Empty!!");
+    }
 }
 void _maxArray(){
     int T[100],n;
@@ -659,14 +631,10 @@ void _minArray(){
     outputNumber(minArray(T,n),"The min of the array is : ");
 }
 void _sortAscending(){
-    int T[100],n,i;
+    int T[100],n;
     inputArray(T,&n);
     sortAscending(T,n);
-    printf("The sorted array in ascending order is : ");
-    for ( i = 0; i < n; i++)
-    {
-        printf("%d ",T[i]);
-    }
+    outputArray(T,n,"The sorted array in ascending order is : ");
     printf("\n");
 }
 void inputMatrix(struct Matrix *M){
@@ -696,9 +664,13 @@ void _addMatrices(){
     inputMatrix(&A);
     printf("Input matrix B : \n");
     inputMatrix(&B);
-    addMatrices(A,B,&C);
-    printf("The result of addition is : \n");
-    displayMatrix(C);
+    if(A.n==B.n && A.p==B.p){
+        addMatrices(A,B,&C);
+        printf("The result of addition is : \n");
+        displayMatrix(C);
+    }else{
+        printf("You cannot add them since they don't have same number of rows and columns : \n");
+    }
 }
 void _multiplyMatrices(){
     struct Matrix A,B,C;
@@ -706,9 +678,13 @@ void _multiplyMatrices(){
     inputMatrix(&A);
     printf("Input matrix B : \n");
     inputMatrix(&B);
-    multiplyMatrices(A,B,&C);
-    printf("The result of multiplication is : \n");
-    displayMatrix(C);
+    if(A.p==B.n){
+        multiplyMatrices(A,B,&C);
+        printf("The result of multiplication is : \n");
+        displayMatrix(C);
+    }else{
+        printf("You cannot multiply these two matrices in that order : \n");
+    }
 }
 void _transposeMatrix(){
     struct Matrix A,T;

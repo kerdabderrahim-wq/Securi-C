@@ -88,8 +88,7 @@ void addUser(struct User users[], int n){
 //input : an array of users, the number of users and the name of the user to delete
 //output : delete the user from the list
 void deleteUser(struct User users[], int n, char name[]){
-    int index,reached;
-    reached=0;
+    int index;
     index=searchUser(users,n,name);
     if (index==-1)
     {
@@ -140,18 +139,18 @@ int searchUser(struct User users[], int n, char name[]){
 //input : an array of users, the number of users and the name of the user
 //output : change the password of the user if found
 void changePassword(struct User users[], int n, char name[]){
-    int i,index;
+    int index;
     char passwd[10];
     //ask for the current password
     index=searchUser(users,n,name);
     if (index!=-1)
     {
         printf("please enter your password");
-        scanf("%s",&passwd);
+        scanf("%s",passwd);
         if (strcmp(passwd,users[index].password)==0)
         {
             printf("please enter your new paaword");
-            scanf("%d",&users[index].password);
+            scanf("%s",users[index].password);
             printf("password changed seccusfully");
             //change the password
         }
@@ -483,15 +482,11 @@ void _changePassword(){
     changePassword(users,userCount,name);
 }
 void _searchUser(){
-    struct User users[199];
-    int n;
     char name[20];
-    printf("Enter number of users:");
-    scanf("%d",&n);
-    initUsers(users,n);
+    initUsers(users,userCount);
     printf("Enter the name to search:");
     scanf("%s",name);
-    int index=searchUser(users,n,name);
+    int index=searchUser(users,userCount,name);
     if (index!=-1)
     {
         printf("user found at index %d",index);
@@ -502,17 +497,12 @@ void _searchUser(){
 }
 
 void _checkLogin(){
-    struct User users[199];
-    int n;
     char name[20],pass[20];
-    printf("Enter number of users:");
-    scanf("%d",&n);
-    initUsers(users,n);
     printf("Enter username:");
     scanf("%s",name);
     printf("Enter password:");
     scanf("%s",pass);
-    if (checkLogin(users,n,name,pass))
+    if (checkLogin(users,userCount,name,pass))
     {
         printf("Login successful");
     }else{
@@ -533,40 +523,29 @@ void _strongPassword(){
     
 }
 void _blockUser(){
-    struct User users[199];
-    int n;
     char name[20];
-    printf("Enter number of users:");
-    scanf("%d",&n);
-    initUsers(users,n);
     printf("Enter the name to block:");
     scanf("%s",name);
-    blockUser(users,n,name);
+    blockUser(users,userCount,name);
 }
 
 void _unblockUser(){
-    struct User users[199];
-    int n;
     char name[20];
-    printf("Enter number of users:");
-    scanf("%d",&n);
-    initUsers(users,n);
     printf("Enter the name to unblock:");
     scanf("%s",name);
-    unblockUser(users,n,name);
+    unblockUser(users,userCount,name);
 }
 void _changeRole(){
-    struct User users[199];
-    int n,role;
+    int role;
     char name[20];
-    printf("Enter number of users:");
-    scanf("%d",&n);
-    initUsers(users,n);
     printf("Enter the name to change role:");
     scanf("%s",name);
     printf("Enter the new role (0 user , 1 admin):");
     scanf("%d",&role);
-    changeRole(users,n,name,role);
+    changeRole(users,userCount,name,role);
+}
+void _listAdmins(){
+    listAdmins(users,userCount);
 }
 void _stringLength(){
     char str[100];
@@ -623,29 +602,17 @@ void _containsSymbol(){
     
 }
 void _userStatistics(){
-    struct User users[199];
-    int n;
-    printf("Enter number of users:");
-    scanf("%d",&n);
-    initUsers(users,n);
-    userStatistics(users,n);
+    userStatistics(users,userCount);
 }
 void _saveUsers(){
-    struct User users[199];
-    int n;
-    printf("Enter number of users:");
-    scanf("%d",&n);
-    initUsers(users,n);
-    saveUsers(users,n);
+    saveUsers(users,userCount);
     printf("Users saved successfully to users.txt");
 }
 void _loadUsers(){
-    struct User users[199];
-    int n;
     printf("Enter number of users to load:");
-    scanf("%d",&n);
-    loadUsers(users,n);
+    scanf("%d",&userCount);
+    loadUsers(users,userCount);
     printf("Users loaded successfully from users.txt\n");
-    displayUsers(users,n);
+    displayUsers(users,userCount);
 }
 

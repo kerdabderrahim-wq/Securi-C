@@ -25,7 +25,7 @@ void inputMessage(struct Message *m){
 
 void displayMessage(struct Message m){
         printf(m.text);
-    }
+}
 
 //3
 // description: function to check if a character is uppercase
@@ -352,6 +352,18 @@ float coincidenceIndex(struct Message m){
 //============================================================================================================================
 // extra function of the cli
 //============================================================================================================================
+void _inputMessage(){
+    struct Message m;
+    inputMessage(&m);
+    printf("The message you entered is : ");
+    displayMessage(m);
+}
+void _displayMessage(){
+    struct Message m;
+    inputMessage(&m);
+    printf("The message is : ");
+    displayMessage(m);
+}
 void _isUppercase(){
     char c;
     printf("Enter a character : ");

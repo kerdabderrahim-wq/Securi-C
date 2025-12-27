@@ -32,6 +32,36 @@ void transposeMatrix(struct Matrix A, struct Matrix *T);
 int determinant2x2(int A[2][2]) ;
 int isSymmetric(struct Matrix M);
 int isIdentity(struct Matrix M);
+void inputNumber(int *n,char *msg);
+void outputNumber(int n, char *msg);
+void _isEven();
+void _isPrime();
+void _gcd();
+void _lcm();
+void _modExp();
+void _factorial();
+void _sumDigits();
+void _reverseNumber();
+void _isPalindromeNumber();
+void _sumDivisors();
+void _isPerfectNumber();
+void _isArmstrong();
+void _randomNumber();
+void inputArray(int T[],int *n);
+void outputArray(int T[],int n,char msg[]);
+void _sumArray();
+void _averageArray();
+void _maxArray();
+void _minArray();
+void _sortAscending();
+void inputMatrix(struct Matrix *M);
+void _displayMatrix();
+void _addMatrices();
+void _multiplyMatrices();
+void _transposeMatrix();
+void _determinant2x2();
+void _isSymmetric();
+void _isIdentity();
 
 
 

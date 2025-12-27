@@ -9,6 +9,10 @@ struct Log{
   char time[10]; 
   int code;  // 0 info, 1 warning, 2 error 
  };
+struct Log logs[100];
+int logCount = 0;
+char* currentDateTime();
+char* currentDate();
 //1
 //Description : Initialize log entries
 // inputs: logs array, number of logs
@@ -23,10 +27,8 @@ void initLogs(struct Log logs[], int n){
         scanf("%s",logs[i].user);
         printf("Enter the action : ");
         scanf("%s",logs[i].action);
-        printf("Enter the date : ");
-        scanf("%s",logs[i].date);
-        printf("Enter the time : ");
-        scanf(" %s",logs[i].time);
+        strcpy(logs[i].date,currentDate());
+        strcpy(logs[i].time,currentDateTime());
         printf("Enter the code : ");
         scanf(" %d",&logs[i].code);
         
@@ -65,11 +67,12 @@ void addLog(struct Log logs[], int n, char user[], char action[], int code){
     {
         logs[i]=logs[i-1];
     }
-    
+    //we add it to the begining
     struct Log newLog;
     strcpy(newLog.user,user);
     strcpy(newLog.action,action);
     strcpy(newLog.date,currentDate());
+    strcpy(newLog.time,currentDateTime());
     newLog.code=code;
     logs[0]=newLog;
 }
@@ -164,9 +167,8 @@ int countLoginLogs(struct Log logs[], int n){
     count=0;
     for ( i = 0; i < n; i++)
     {
-        if (strcmp(logs[i].action,"login")==0)
+        if (strcmp(logs[i].action,"login")==0){
         //compare strings
-        {
             count++;
         }
         
@@ -226,11 +228,14 @@ void sortLogsByDate(struct Log logs[], int n){
     }
     
 }
- if (isSorted=0)
+ if (isSorted==0)
     {
         sortLogsByDate(logs,n);
     }
 }
+
+
+
 //11
 //Description : Sort logs by user
 //inputs: logs array, number of logs
@@ -251,19 +256,31 @@ void sortLogsByUser(struct Log logs[], int n){
     }
     
 }
-if (isSorted=0){
+if (isSorted==0){
         sortLogsByUser(logs,n);
 }
 }
-int detectSuspiciousActivity(struct Log logs[], int n, char user[]){
 
+int detectSuspiciousActivity(struct Log logs[], int n, char user[]){
+    // Implementation: e.g., multiple failed logins
+    int count = 0;
+    for(int i=0; i<n; i++){
+        if(strcmp(logs[i].user, user) == 0 && logs[i].code == 2){ // Error
+            count++;
+        }
+    }
+    return count > 3; // Suspicious if more than 3 errors
 }
 
+
 float errorRate(struct Log logs[], int n){
+    if (n == 0){
+        return 0.0;
+    }
     return (float)countErrorLogs(logs,n)/n;
 
 }
-// i do *100 in the second vertion of the function to get percentage
+// i do *100 in the second version of the function to get percentage
 // extra function to clear logs
 void clearLogs(struct Log logs[], int n){
     int i;
@@ -277,207 +294,195 @@ void clearLogs(struct Log logs[], int n){
     }
 }
 
-int main(){
-    //test after log management
-    struct Log logs[100];
-    int n=0;
-    //test error rate with predefined logs
-    for (int i = 0; i < 5; i++)
-    {
-        strcpy(logs[i].user,"user1");
-        strcpy(logs[i].action,"action1");
-        strcpy(logs[i].date,"2024-01-01");
-        strcpy(logs[i].time,"12:00:00");
-        if (i%2==0)
-        {
-            logs[i].code=2; //error
-        }else{
-            logs[i].code=0; //info
+void dailyConnections(struct Log logs[], int n){
+    // Count logins per day (simplified: just print dates of logins)
+    printf("Daily Connections:\n");
+    for(int i=0; i<n; i++){
+        if(strcmp(logs[i].action, "login") == 0){
+            printf("%s: %s\n", logs[i].date, logs[i].user);
         }
     }
-    n=5;
-    displayLogs(logs,n);
-    float rate=errorRate(logs,n);
-    printf("Error Rate: %.2f%%\n",rate*100);
-    return 0;
 }
+
+
+void exportLogsCSV(struct Log logs[], int n){
+    FILE *f = fopen("logs.csv", "w");
+    if(f == NULL){
+        printf("Error opening file.\n");
+        return;
+    }
+    fprintf(f, "User,Action,Date,Time,Code\n");
+    for(int i=0; i<n; i++){
+        fprintf(f, "%s,%s,%s,%s,%d\n", logs[i].user, logs[i].action, logs[i].date, logs[i].time, logs[i].code);
+    }
+    fclose(f);
+}
+
+void importLogsCSV(struct Log logs[], int *n){
+    FILE *f = fopen("logs.csv", "r");
+    if(f == NULL){
+        printf("Error opening file.\n");
+        return;
+    }
+    char buffer[1024];
+    fgets(buffer, 1024, f); // Skip header
+    *n = 0;
+    while(fgets(buffer, 1024, f)){
+        sscanf(buffer, "%[^,],%[^,],%[^,],%[^,],%d", logs[*n].user, logs[*n].action, logs[*n].date, logs[*n].time, &logs[*n].code);
+        (*n)++;
+    }
+    fclose(f);
+}
+
+void recentLogs(struct Log logs[], int n){
+    // Display last 5 logs
+    int start; 
+    start= n > 5 ? n - 5 : 0;
+    for(int i=start; i<n; i++){
+        printf("Log %d: %s %s %s\n", i+1, logs[i].date, logs[i].user, logs[i].action);
+    }
+}
+
+void archiveLogs(struct Log logs[], int n){
+    // Save to archive file
+    FILE *f = fopen("logs_archive.txt", "a");
+    if(f == NULL){
+        printf("Error opening file.\n");
+        return;
+    }
+    for(int i=0; i<n; i++){
+        fprintf(f, "%s %s %s %s %d\n", logs[i].user, logs[i].action, logs[i].date, logs[i].time, logs[i].code);
+    }
+    fclose(f);
+    printf("Logs archived.\n");
+}
+
+
+void showTopErrors(struct Log logs[], int n){
+    // Simplified: show users with most errors
+    printf("Top Errors:\n");
+    for(int i=0; i<n; i++){
+        if(logs[i].code == 2){
+            printf("%s: %s\n", logs[i].user, logs[i].action);
+        }
+    }
+}
+
+
+
+
+
+
 
 //============================================================================================================================
 // extra functions for the cli
 //========================================================================================================================================
 
 void _initLogs(){
-    struct Log logs[100];
-    int n;
     printf("Enter number of logs to initialize: ");
-    scanf("%d",&n);
-    initLogs(logs,n);
+    scanf("%d",&logCount);
+    initLogs(logs,logCount);
     printf("Logs initialized successfully.\n");
 }
 void _addLog(){
-    struct Log logs[100];
-    int n;
     char user[20],action[50];
     int code;
-    printf("Enter current number of logs: ");
-    scanf("%d",&n);
     printf("Enter username: ");
     scanf("%s",user);
     printf("Enter action: ");
     scanf("%s",action);
     printf("Enter code (0: info, 1: warning, 2: error): ");
     scanf("%d",&code);
-    addLog(logs,n,user,action,code);
+    addLog(logs,logCount,user,action,code);
+    logCount++;
     printf("Log added successfully.\n");
 }
 void _displayLogs(){
-    struct Log logs[100];
-    int n;
-    printf("Enter number of logs to display: ");
-    scanf("%d",&n);
-    displayLogs(logs,n);
+    displayLogs(logs,logCount);
 }
 void _searchLogsByUser(){
-    struct Log logs[100];
-    int n;
     char user[20];
     printf("Enter number of logs: ");
-    scanf("%d",&n);
+    scanf("%d",&logCount);
     printf("Enter username to search: ");
     scanf("%s",user);
-    searchLogsByUser(logs,n,user);
+    searchLogsByUser(logs,logCount,user);
 }
 void _searchLogsByDate(){
-    struct Log logs[100];
-    int n;
+
     char date[11];
-    printf("Enter number of logs: ");
-    scanf("%d",&n);
     printf("Enter date to search In the form of (YYYY-MM-DD): ");
     scanf("%s",date);
-    searchLogsByDate(logs,n,date);
+    searchLogsByDate(logs,logCount,date);
 }
 void _countErrorLogs(){
-    struct Log logs[100];
-    int n,count;
-    printf("Enter number of logs: ");
-    scanf("%d",&n);
-    count=countErrorLogs(logs,n);
+    int count;
+    count=countErrorLogs(logs,logCount);
     printf("Number of error logs: %d\n",count);
 }
 void _countLoginLogs(){
-    struct Log logs[100];
-    int n,count;
-    printf("Enter number of logs: ");
-    scanf("%d",&n);
-    count=countLoginLogs(logs,n);
+    int count;
+    count=countLoginLogs(logs,logCount);
     printf("Number of login logs: %d\n",count);
 }
 void _countBlockedLogs(){
-    struct Log logs[100];
-    int n,count;
-    printf("Enter number of logs: ");
-    scanf("%d",&n);
-    count=countBlockedLogs(logs,n);
+    int count;
+    count=countBlockedLogs(logs,logCount);
     printf("Number of blocked logs: %d\n",count);
 }
 void _displayLogStats(){
-    struct Log logs[100];
-    int n;
-    printf("Enter number of logs: ");
-    scanf("%d",&n);
-    displayLogStats(logs,n);
+    displayLogStats(logs,logCount);
 }
 void _sortLogsByDate(){
-    struct Log logs[100];
-    int n;
-    printf("Enter number of logs: ");
-    scanf("%d",&n);
-    sortLogsByDate(logs,n);
+    sortLogsByDate(logs,logCount);
     printf("Logs sorted by date successfully\n");
 }   
 void _sortLogsByUser(){
-    struct Log logs[100];
-    int n;
-    printf("Enter number of logs: ");
-    scanf("%d",&n);
-    sortLogsByUser(logs,n);
+    sortLogsByUser(logs,logCount);
     printf("Logs sorted by user successfully\n");
 }
-/*=============================================================================================================================*/
 
+void _detectSuspiciousActivity(){
+    char user[20];
+    printf("Enter username to check: ");
+    scanf("%s", user);
+    if(detectSuspiciousActivity(logs, logCount, user)){
+        printf("Suspicious activity detected for user %s!\n", user);
+    } else {
+        printf("No suspicious activity detected for user %s.\n", user);
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void _dailyConnections(){
+    dailyConnections(logs, logCount);
+}
 
 
 void _errorRate(){
-    struct Log logs[100];
-    int n;
     float rate;
-    printf("Enter number of logs: ");
-    scanf("%d",&n);
-    rate=errorRate(logs,n);
-    printf("Error Rate: %.2f \n",rate*100);
+    rate=errorRate(logs,logCount);
+    printf("Error Rate: %.2f%%\n",rate*100);
+}
+void _exportLogsCSV(){
+    exportLogsCSV(logs, logCount);
+    printf("Logs exported to logs.csv\n");
+}
+void _importLogsCSV(){
+    importLogsCSV(logs, &logCount);
+    printf("Logs imported from logs.csv\n");
 }
 void _clearLogs(){
-    struct Log logs[100];
-    int n;
-    printf("Enter number of logs to clear: ");
-    scanf("%d",&n);
-    clearLogs(logs,n);
+    clearLogs(logs,logCount);
+    logCount = 0;
     printf("Logs cleared successfully\n");
 }
+void _recentLogs(){
+    recentLogs(logs, logCount);
+}
+void _archiveLogs(){
+    archiveLogs(logs, logCount);
+}
+void _showTopErrors(){
+    showTopErrors(logs, logCount);
+}
+

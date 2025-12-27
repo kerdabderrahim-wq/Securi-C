@@ -225,14 +225,18 @@ float averageScore(struct User users[], int n){
     {
         total=total+passwordScore(users[i].password);
     }
-    return (float)total/n;
+    if(n!=0){
+        return (float)total/n;
+    }else{
+        return 0.0;
+    }
 }
 //13
 //description : a procedure that displays a security report for an array of users
 // input : an array of User structs and the number of users
 // output : none (the function prints the report to the console)
 void displaySecurityReport(struct User users[], int n){
-    int i,strong,weak,score;
+    int i,score;
     for ( i = 0; i < n; i++)
     {
         score = passwordScore(users[i].password);
@@ -417,6 +421,12 @@ void _textLength(){
     scanf(" %[^\n]",text);
     printf("The length of the text is : %d\n",textLength(text));
 }
+void _displayTextStats(){
+    char text[400];
+    printf("Enter the text:\n");
+    scanf(" %[^\n]",text);
+    displayTextStats(text);
+}
 void _veryStrongPassword(){
     char pass[100];
     printf("Enter the password:\n");
@@ -493,6 +503,9 @@ void _countStrongUsers(){
         scanf(" %[^\n]",users[i].password);
     }
     printf("The number of users with strong passwords is : %d\n",countStrongUsers(users,n));
+}
+void _showSecurityTips(){
+    showSecurityTips();
 }
 void _checkEmailFormat(){
     char email[100];

@@ -1,10 +1,11 @@
-#ifndef ENC_DEC_H  //we must put it if we create a library//
-#define ENC_DEC_H //we must put it if we create a library//
+#ifndef ENC_DEC_H
+#define ENC_DEC_H
 
 struct Message {
     char text[512];
     int length;
 };
+
 void inputMessage(struct Message *m);
 void displayMessage(struct Message m);
 int isUppercase(char c);   
@@ -25,4 +26,27 @@ int compareMessages(struct Message m1, struct Message m2);
 int countCharacter(struct Message m, char c);
 void frequencyAnalysis(struct Message m);
 float coincidenceIndex(struct Message m);
-#endif //we must put it if we create a library//
+
+// CLI wrapper functions
+void _inputMessage();
+void _displayMessage();
+void _isUppercase();
+void _isLowercase();
+void _isAlphabetic();
+void _toUppercase();
+void _toLowercase();
+void _reverseMessage();
+void _removeSpaces();
+void _encryptCesar();
+void _decryptCesar();
+void _encryptXOR();
+void _decryptXOR();
+void _encryptSubstitution();
+void _decryptSubstitution();
+void _isValidKey();
+void _compareMessages();
+void _countCharacter();
+void _frequencyAnalysis();
+void _coincidenceIndex();
+
+#endif
