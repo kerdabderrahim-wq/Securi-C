@@ -374,6 +374,8 @@ void displayMatrix(struct Matrix M){
 //output : matrix C which is the addition of A and B
 void addMatrices(struct Matrix A, struct Matrix B, struct Matrix *C){
     int i,j;
+    C->n=A.n;
+    C->p=A.p;
     for ( i = 0; i < A.n; i++)
     {
         for ( j = 0; j < A.p; j++)
@@ -394,6 +396,7 @@ void multiplyMatrices(struct Matrix A, struct Matrix B, struct Matrix *C) {
     C->n = A.n;
     C->p = B.p;
 
+    
     // A is (n x m), B is (m x p), Result C is (n x p)
     for (i = 0; i < A.n; i++) {           // Loop through rows of A
         for (j = 0; j < B.p; j++) {       // Loop through columns of B
@@ -414,6 +417,8 @@ void multiplyMatrices(struct Matrix A, struct Matrix B, struct Matrix *C) {
 
 void transposeMatrix(struct Matrix A, struct Matrix *T){
     int i,j;
+    T->n=A.p;
+    T->p=A.n;
     for ( i = 0; i < A.n; i++)
     {
         for ( j = 0; j <A.p ; j++)

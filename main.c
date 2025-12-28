@@ -136,9 +136,7 @@ void showAbout();
 int main() {
     int choice;
     do {
-        clearScreen();
         draw_logo();
-        
         printf("--------------- Securi-C Main Menu ---------------\n");
         // Using string concatenation to insert colors
         printf(C_NUM "1." C_RST " Encryption and Decryption Library\n");
