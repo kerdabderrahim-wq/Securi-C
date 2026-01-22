@@ -126,7 +126,6 @@ int main() {
     do {
         clearScreen();
         draw_logo();
-        
         printf("--------------- Securi-C Main Menu ---------------\n");
         printf(C_NUM "1." C_RST " Encryption and Decryption Library\n");
         printf(C_NUM "2." C_RST " Mathematical and Security Tools\n");
