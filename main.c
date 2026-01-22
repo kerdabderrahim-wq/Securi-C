@@ -2,35 +2,27 @@
 #include <string.h>
 #include <stdlib.h>
 
-// Include your custom headers
 #include "Encryption & Decryption/enc_dec.h"
 #include "Math & Security Tools/math.h"
 #include "User Management/user.h"
 #include "Security audit and analysis/security_audit.h"
 #include "Log Management & Analysis _/log.h"
 
-// --- COLOR SETTINGS ---
-// Gradient Start (Blue)
 #define START_R 60
 #define START_G 160
 #define START_B 255
 
-// Gradient End (Orange)
 #define END_R 255
 #define END_G 150
 #define END_B 100
 
-// Shadow Color (Dark Grey)
 #define SHADOW_R 20
 #define SHADOW_G 20
 #define SHADOW_B 30
 
-// --- TEXT COLOR MACROS (For easy use in printf) ---
-// This allows us to write: printf(C_NUM "1." C_RST " Option");
-#define C_NUM "\033[38;2;255;150;100m" // Orange for numbers
-#define C_RST "\033[0m"                // Reset to white
+#define C_NUM "\033[38;2;255;150;100m" 
+#define C_RST "\033[0m"                
 
-// --- LOGO: Securi-C ---
 void draw_logo() {
     const char *bitmap[] = {
         "  #   ####  #####  ####   #  #  ####  #         #### ",
@@ -69,7 +61,6 @@ void draw_logo() {
     printf("\n"); 
 }
 
-// --- LOGO: NSCS ---
 void drawNSCS() {
     const char *bitmap[] = {
         " #   #   ####    ####    #### ",
@@ -108,7 +99,6 @@ void drawNSCS() {
     printf("\n");
 }
 
-// --- SYSTEM UTILS ---
 void clearScreen() {
     #ifdef _WIN32
         system("cls");
@@ -123,7 +113,6 @@ void pauseConsole() {
     getchar(); 
 }
 
-// --- PROTOTYPES ---
 void menuEncryption();
 void menuMath();
 void menuUser();
@@ -132,7 +121,6 @@ void menuLog();
 void showHelp();
 void showAbout();
 
-// --- MAIN ---
 int main() {
     int choice;
     do {
@@ -140,7 +128,6 @@ int main() {
         draw_logo();
         
         printf("--------------- Securi-C Main Menu ---------------\n");
-        // Using string concatenation to insert colors
         printf(C_NUM "1." C_RST " Encryption and Decryption Library\n");
         printf(C_NUM "2." C_RST " Mathematical and Security Tools\n");
         printf(C_NUM "3." C_RST " User Management System\n");
@@ -173,17 +160,15 @@ int main() {
     return 0;
 }
 
-// --- SUB MENUS ---
 
 void menuEncryption() {
     int choice;
     do {
         clearScreen();
-        // Header
+        
         printf("\033[38;2;%d;%d;%dm >> Encryption & Decryption Library\033[0m\n", START_R,START_G,START_B);
         printf("----------------------------------\n");
         
-        // Colored Numbers
         printf(" " C_NUM "1." C_RST " Input Message           " C_NUM "2." C_RST " Display Message\n");
         printf(" " C_NUM "3." C_RST " Is Uppercase?           " C_NUM "4." C_RST " Is Lowercase?\n");
         printf(" " C_NUM "5." C_RST " Is Alphabetic?          " C_NUM "6." C_RST " To Uppercase\n");
@@ -231,11 +216,9 @@ void menuMath() {
     int choice;
     do {
         clearScreen();
-        // Header
         printf("\033[38;2;%d;%d;%dm >> Mathematical & Security Tools\033[0m\n", START_R,START_G,START_B);
         printf("--------------------------------\n");
         
-        // Colored Numbers
         printf(" " C_NUM "1." C_RST " Is Even?                " C_NUM "2." C_RST " Is Prime?\n");
         printf(" " C_NUM "3." C_RST " GCD                     " C_NUM "4." C_RST " LCM\n");
         printf(" " C_NUM "5." C_RST " Modular Exp             " C_NUM "6." C_RST " Factorial\n");
@@ -290,11 +273,9 @@ void menuUser() {
     int choice;
     do {
         clearScreen();
-        // Header
         printf("\033[38;2;%d;%d;%dm >> User Management System\033[0m\n", START_R,START_G,START_B);
         printf("--------------------------\n");
         
-        // Colored Numbers
         printf(" " C_NUM "1." C_RST " Init Users              " C_NUM "2." C_RST " Display Users\n");
         printf(" " C_NUM "3." C_RST " Add User                " C_NUM "4." C_RST " Delete User\n");
         printf(" " C_NUM "5." C_RST " Search User             " C_NUM "6." C_RST " Change Password\n");
@@ -342,11 +323,9 @@ void menuAudit() {
     int choice;
     do {
         clearScreen();
-        // Header
         printf("\033[38;2;%d;%d;%dm >> Security Audit & Analysis\033[0m\n", START_R,START_G,START_B);
         printf("----------------------------\n");
         
-        // Colored Numbers
         printf(" " C_NUM "1." C_RST " Count Uppercase         " C_NUM "2." C_RST " Count Lowercase\n");
         printf(" " C_NUM "3." C_RST " Count Digits            " C_NUM "4." C_RST " Percent Uppercase\n");
         printf(" " C_NUM "5." C_RST " Text Length             " C_NUM "6." C_RST " Display Stats\n");
@@ -386,11 +365,9 @@ void menuLog() {
     int choice;
     do {
         clearScreen();
-        // Header
         printf("\033[38;2;%d;%d;%dm >> Log Management & Analysis\033[0m\n", START_R, START_G, START_B);
         printf("----------------------------\n");
         
-        // Colored Numbers
         printf(" " C_NUM "1." C_RST " Init Logs               " C_NUM "2." C_RST " Add Log\n");
         printf(" " C_NUM "3." C_RST " Display Logs            " C_NUM "4." C_RST " Search by User\n");
         printf(" " C_NUM "5." C_RST " Search by Date          " C_NUM "6." C_RST " Count Errors\n");
@@ -436,7 +413,6 @@ void menuLog() {
 
 void showHelp() {
     clearScreen();
-    // Header
     printf("\033[38;2;%d;%d;%dm >> HELP GUIDE\033[0m\n", START_R,START_G,START_B);
     printf("Use the number keys to navigate the menus.\n");
     printf("Each library contains modules for cybersecurity tasks.\n");
@@ -447,7 +423,6 @@ void showHelp() {
 void showAbout() {
     clearScreen();
     drawNSCS();
-    // Header
     printf("\033[38;2;%d;%d;%dm >> ABOUT Securi-C\033[0m\n", START_R,START_G,START_B);
     printf("Securi-C is a comprehensive C library suite for cybersecurity.\n");
     printf("It includes modules for encryption, math tools, user management,\n");
