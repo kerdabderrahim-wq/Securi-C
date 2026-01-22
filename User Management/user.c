@@ -483,7 +483,6 @@ void _changePassword(){
 }
 void _searchUser(){
     char name[20];
-    initUsers(users,userCount);
     printf("Enter the name to search:");
     scanf("%s",name);
     int index=searchUser(users,userCount,name);

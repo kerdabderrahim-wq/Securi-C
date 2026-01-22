@@ -322,18 +322,17 @@ void menuAudit() {
     int choice;
     do {
         clearScreen();
-        printf("\033[38;2;%d;%d;%dm >> Security Audit & Analysis\033[0m\n", START_R,START_G,START_B);
-        printf("----------------------------\n");
-        
-        printf(" " C_NUM "1." C_RST " Count Uppercase         " C_NUM "2." C_RST " Count Lowercase\n");
-        printf(" " C_NUM "3." C_RST " Count Digits            " C_NUM "4." C_RST " Percent Uppercase\n");
-        printf(" " C_NUM "5." C_RST " Text Length             " C_NUM "6." C_RST " Display Stats\n");
-        printf(" " C_NUM "7." C_RST " Very Strong Pass?       " C_NUM "8." C_RST " Generate Key\n");
-        printf(" " C_NUM "9." C_RST " Is Hex Key?            " C_NUM "10." C_RST " Gen Random Pass\n");
-        printf(C_NUM "11." C_RST " Password Score         " C_NUM "12." C_RST " Average Score\n");
-        printf(C_NUM "13." C_RST " Global Report          " C_NUM "14." C_RST " Count Strong Users\n");
-        printf(C_NUM "15." C_RST " Security Tips           " C_NUM "0." C_RST " Back\n");
-        
+        printf(" " C_NUM "1." C_RST " Count Uppercase         " C_NUM " 2." C_RST " Count Lowercase\n");
+        printf(" " C_NUM "3." C_RST " Count Digits            " C_NUM " 4." C_RST " Percent Uppercase\n");
+        printf(" " C_NUM "5." C_RST " Text Length             " C_NUM " 6." C_RST " Display Text Stats\n");
+        printf(" " C_NUM "7." C_RST " Very Strong Password?   " C_NUM " 8." C_RST " Generate Key\n");
+        printf(" " C_NUM "9." C_RST " Is Hex Key?             " C_NUM "10." C_RST " Generate Random Pass\n");
+        printf(C_NUM "11." C_RST " Password Score          " C_NUM "12." C_RST " Average Score\n");
+        printf(C_NUM "13." C_RST " Display Security Report " C_NUM "14." C_RST " Count Strong Users\n");
+        printf(C_NUM "15." C_RST " Show Security Tips      " C_NUM "16." C_RST " Check Email Format\n");
+        printf(C_NUM "17." C_RST " Check Login Format      " C_NUM "18." C_RST " Generate Hex Key\n");
+        printf(C_NUM "19." C_RST " Top 3 Passwords         " C_NUM "20." C_RST " Global Security Level\n");
+        printf(" " C_NUM "0." C_RST " Back\n");
         printf("Choice: ");
         scanf("%d", &choice);
 
@@ -353,6 +352,11 @@ void menuAudit() {
             case 13: _displaySecurityReport(); break;
             case 14: _countStrongUsers(); break;
             case 15: _showSecurityTips(); break;
+            case 16: _checkEmailFormat(); break;
+            case 17: _checkLoginFormat(); break;
+            case 18: _generateHexKey(); break;
+            case 19: _top3Passwords(); break;
+            case 20: _globalSecurityLevel(); break;
             case 0: return;
             default: printf("Invalid choice.\n");
         }

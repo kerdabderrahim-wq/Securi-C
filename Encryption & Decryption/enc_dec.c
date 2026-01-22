@@ -145,9 +145,9 @@ void decryptCesar(struct Message *m, int key){
         if (isUppercase(m->text[i])){
             //there is 26 letter so we use MOD 26
             //the same with minus//
-            m->text[i]=((m->text[i]-'A'-key)%26)+'A';
+            m->text[i]=(((m->text[i]-'A'-key)%26+26)%26)+'A';
         }else if (isLowercase(m->text[i])){
-            m->text[i]=((m->text[i]-'a'-key)%26)+'a';
+            m->text[i]=(((m->text[i]-'a'-key)%26+26)%26)+'a';
         }
     }
 
@@ -482,7 +482,7 @@ void _encryptSubstitution(){
 }
 void _decryptSubstitution(){
     struct Message m;
-    char key[27];
+    char key[260];
     inputMessage(&m);
     printf("Enter the substitution key (26 alphabetic characters): ");
     scanf(" %26s",key);
@@ -495,7 +495,7 @@ void _decryptSubstitution(){
     }
 }
 void _isValidKey(){
-    char key[27];
+    char key[270];
     printf("Enter the substitution key (26 alphabetic characters): ");
     scanf(" %26s",key);
     if (isValidKey(key)){

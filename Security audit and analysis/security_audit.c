@@ -531,6 +531,11 @@ void _checkLoginFormat(){
     }
     
 }
+void _generateHexKey(){
+
+
+
+}
 void _sortScore(){
     struct User users[100];
     int n,i;
