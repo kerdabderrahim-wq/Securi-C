@@ -471,7 +471,7 @@ void _encryptSubstitution(){
     char key[27];
     inputMessage(&m);
     printf("Enter the substitution key (26 alphabetic characters): ");
-    scanf(" %26s",key);
+    scanf(" %[^\n]",key);
     if (isValidKey(key)){
         encryptSubstitution(&m,key);
         printf("The encrypted message is : ");
@@ -482,10 +482,10 @@ void _encryptSubstitution(){
 }
 void _decryptSubstitution(){
     struct Message m;
-    char key[260];
+    char key[27];
     inputMessage(&m);
     printf("Enter the substitution key (26 alphabetic characters): ");
-    scanf(" %26s",key);
+    scanf(" %[^\n]",key);
     if (isValidKey(key)){
         decryptSubstitution(&m,key);
         printf("The decrypted message is : ");
@@ -497,7 +497,7 @@ void _decryptSubstitution(){
 void _isValidKey(){
     char key[270];
     printf("Enter the substitution key (26 alphabetic characters): ");
-    scanf(" %26s",key);
+    scanf(" %[^\n]",key);
     if (isValidKey(key)){
         printf("The key is valid.\n");
     }else{

@@ -532,7 +532,12 @@ void _checkLoginFormat(){
     
 }
 void _generateHexKey(){
-
+    int length;
+    char key[100];
+    printf("Enter the length of the hexadecimal key:\n");
+    scanf("%d",&length);
+    generateHexKey(length,key);
+    printf("The generated hexadecimal key is : %s\n",key);
 
 
 }

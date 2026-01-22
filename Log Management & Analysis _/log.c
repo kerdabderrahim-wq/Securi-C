@@ -40,9 +40,21 @@ void initLogs(struct Log logs[], int n){
 
 char* currentDateTime(){
     time_t now;
+    struct tm *local_time;
+    char *buffer = (char*)malloc(6 * sizeof(char)); // HH:MM plus null terminator
+
+    if (buffer == NULL) {
+        perror("Unable to allocate buffer");
+        return NULL;
+    }
+
     time(&now);
-    char* dt = ctime(&now);
-    return dt;
+    local_time = localtime(&now);
+
+    strftime(buffer, 6, "%H:%M", local_time);
+
+    return buffer;
+    
 }
 //extra function for get current date
 char* currentDate(){
@@ -63,7 +75,7 @@ char* currentDate(){
 void addLog(struct Log logs[], int n, char user[], char action[], int code){
     
     int i;
-    for ( i = n-1; i >0 ; i--)
+    for ( i = n; i >0 ; i--)
     {
         logs[i]=logs[i-1];
     }
