@@ -26,13 +26,19 @@ void initUsers(struct User users[], int n){
         scanf("%s",users[i].password);
         do{
             printf("Enter the user %d role (0 user , 1 admin) :",i+1);
-            scanf("%d",&users[i].role);
+            while (scanf("%d",&users[i].role) != 1) {
+                printf("Invalid input. Please enter a number: ");
+                while (getchar() != '\n');
+            }
         }
         while(users[i].role!=0  && users[i].role!=1);
         
         do{
             printf("Enter the user %d state (0 active , 1 blocked) :",i+1);
-            scanf("%d",&users[i].state);
+            while (scanf("%d",&users[i].state) != 1) {
+                printf("Invalid input. Please enter a number: ");
+                while (getchar() != '\n');
+            }
         }
         while(users[i].state!=0  && users[i].state!=1);
 
@@ -458,7 +464,10 @@ void loadUsers(struct User users[], int n){
 //===============================================================================================================================1
 void _initUsers(){
     printf("Enter number of users to initialize: ");
-    scanf("%d",&userCount);
+    while (scanf("%d",&userCount) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     initUsers(users,userCount);
 }
 void _displayUsers(){
@@ -540,7 +549,10 @@ void _changeRole(){
     printf("Enter the name to change role:");
     scanf("%s",name);
     printf("Enter the new role (0 user , 1 admin):");
-    scanf("%d",&role);
+    while (scanf("%d",&role) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     changeRole(users,userCount,name,role);
 }
 void _listAdmins(){
@@ -609,7 +621,10 @@ void _saveUsers(){
 }
 void _loadUsers(){
     printf("Enter number of users to load:");
-    scanf("%d",&userCount);
+    while (scanf("%d",&userCount) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     loadUsers(users,userCount);
     printf("Users loaded successfully from users.txt\n");
     displayUsers(users,userCount);

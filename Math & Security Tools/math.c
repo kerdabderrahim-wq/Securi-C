@@ -477,7 +477,10 @@ int isIdentity(struct Matrix M){
 //============================================================================================================
 void inputNumber(int *n,char *msg){
     printf(msg);
-    scanf("%d",n);
+    while (scanf("%d",n) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     //* with & cancel out //
 }
 void outputNumber(int n, char *msg){
@@ -587,11 +590,17 @@ void _randomNumber(){
 void inputArray(int T[],int *n){
     int i,temp;
     printf("Enter the number of  elements of array : ");
-    scanf("%d",n);
+    while (scanf("%d",n) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     for ( i = 0; i < *n; i++)
     {   
         printf("Enter the number %d element : ",i+1);
-        scanf("%d",&temp);
+        while (scanf("%d",&temp) != 1) {
+            printf("Invalid input. Please enter a number: ");
+            while (getchar() != '\n');
+        }
         T[i]=temp;
     }
     
@@ -645,15 +654,24 @@ void _sortAscending(){
 void inputMatrix(struct Matrix *M){
     int i,j;
     printf("Enter the number of rows : ");
-    scanf("%d",&(M->n));
+    while (scanf("%d",&(M->n)) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     printf("Enter the number of columns : ");
-    scanf("%d",&(M->p));
+    while (scanf("%d",&(M->p)) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     for ( i = 0; i < M->n; i++)
     {
         for ( j = 0; j < M->p; j++)
         {
             printf("Enter element [%d][%d] : ",i,j);
-            scanf("%d",&(M->data[i][j]));
+            while (scanf("%d",&(M->data[i][j])) != 1) {
+                printf("Invalid input. Please enter a number: ");
+                while (getchar() != '\n');
+            }
         }
         
     }
@@ -702,13 +720,25 @@ void _transposeMatrix(){
 void _determinant2x2(){
     int A[2][2];
     printf("Enter element [0][0] : ");
-    scanf("%d",&A[0][0]);
+    while (scanf("%d",&A[0][0]) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     printf("Enter element [0][1] : ");
-    scanf("%d",&A[0][1]);
+    while (scanf("%d",&A[0][1]) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     printf("Enter element [1][0] : ");
-    scanf("%d",&A[1][0]);
+    while (scanf("%d",&A[1][0]) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     printf("Enter element [1][1] : ");
-    scanf("%d",&A[1][1]);
+    while (scanf("%d",&A[1][1]) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     printf("The determinant is : %d\n",determinant2x2(A));
 }
 

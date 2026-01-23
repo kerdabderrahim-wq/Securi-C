@@ -444,7 +444,10 @@ void _generateKey(){
     int length;
     char key[100];
     printf("Enter the length of the key:\n");
-    scanf("%d",&length);
+    while (scanf("%d",&length) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     generateKey(length,key);
     printf("The generated key is : %s\n",key);
 }
@@ -466,7 +469,10 @@ void _generateRandomPassword(){
     int length;
     char pass[100];
     printf("Enter the length of the password:\n");
-    scanf("%d",&length);
+    while (scanf("%d",&length) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     generateRandomPassword(length,pass);
     printf("The generated password is : %s\n",pass);
 }
@@ -480,7 +486,10 @@ void _averageScore(){
     struct User users[100];
     int n,i;
     printf("Enter the number of users:\n");
-    scanf("%d",&n);
+    while (scanf("%d",&n) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     for ( i = 0; i < n; i++)
     {
         printf("Enter the name of user %d:\n",i+1);
@@ -494,7 +503,10 @@ void _countStrongUsers(){
     struct User users[100];
     int n,i;
     printf("Enter the number of users:\n");
-    scanf("%d",&n);
+    while (scanf("%d",&n) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     for ( i = 0; i < n; i++)
     {
         printf("Enter the name of user %d:\n",i+1);
@@ -535,7 +547,10 @@ void _generateHexKey(){
     int length;
     char key[100];
     printf("Enter the length of the hexadecimal key:\n");
-    scanf("%d",&length);
+    while (scanf("%d",&length) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     generateHexKey(length,key);
     printf("The generated hexadecimal key is : %s\n",key);
 
@@ -545,7 +560,10 @@ void _sortScore(){
     struct User users[100];
     int n,i;
     printf("Enter the number of users:\n");
-    scanf("%d",&n);
+    while (scanf("%d",&n) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     for ( i = 0; i < n; i++)
     {
         printf("Enter the name of user %d:\n",i+1);
@@ -560,7 +578,10 @@ void _top3Passwords(){
     struct User users[100];
     int n,i;
     printf("Enter the number of users:\n");
-    scanf("%d",&n);
+    while (scanf("%d",&n) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     for ( i = 0; i < n; i++)
     {
         printf("Enter the name of user %d:\n",i+1);
@@ -574,7 +595,10 @@ void _displaySecurityReport(){
     struct User users[100];
     int n,i;
     printf("Enter the number of users:\n");
-    scanf("%d",&n);
+    while (scanf("%d",&n) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     for ( i = 0; i < n; i++)
     {
         printf("Enter the name of user %d:\n",i+1);
@@ -589,7 +613,10 @@ void _globalSecurityLevel(){
     struct User users[100];
     int n,i;
     printf("Enter the number of users:\n");
-    scanf("%d",&n);
+    while (scanf("%d",&n) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     for ( i = 0; i < n; i++)
     {
         printf("Enter the name of user %d:\n",i+1);

@@ -137,7 +137,10 @@ int main() {
         printf(C_NUM "0." C_RST " Exit\n");
         printf("------------------------------------------------\n");
         printf("Enter your choice: ");
-        scanf("%d", &choice);
+        while (scanf("%d", &choice) != 1) {
+            printf("Invalid input. Please enter a number: ");
+            while (getchar() != '\n');
+        }
 
         switch (choice) {
             case 1: menuEncryption(); break;
@@ -181,7 +184,10 @@ void menuEncryption() {
         printf(" " C_NUM "0." C_RST " Back to Main Menu\n");
         
         printf("Choice: ");
-        scanf("%d", &choice);
+        while (scanf("%d", &choice) != 1) {
+            printf("Invalid input. Please enter a number: ");
+            while (getchar() != '\n');
+        }
 
         switch (choice) {
             case 1: _inputMessage(); break;
@@ -233,7 +239,10 @@ void menuMath() {
         printf(C_NUM "25." C_RST " Is Identity Matrix      " C_NUM "0." C_RST " Back\n");
         
         printf("Choice: ");
-        scanf("%d", &choice);
+        while (scanf("%d", &choice) != 1) {
+            printf("Invalid input. Please enter a number: ");
+            while (getchar() != '\n');
+        }
 
         switch (choice) {
             case 1: _isEven(); break;
@@ -288,7 +297,10 @@ void menuUser() {
         printf(" " C_NUM "0." C_RST " Back\n");
         
         printf("Choice: ");
-        scanf("%d", &choice);
+        while (scanf("%d", &choice) != 1) {
+            printf("Invalid input. Please enter a number: ");
+            while (getchar() != '\n');
+        }
 
         switch (choice) {
             case 1: _initUsers(); break;
@@ -334,7 +346,10 @@ void menuAudit() {
         printf(C_NUM "19." C_RST " Top 3 Passwords         " C_NUM "20." C_RST " Global Security Level\n");
         printf(" " C_NUM "0." C_RST " Back\n");
         printf("Choice: ");
-        scanf("%d", &choice);
+        while (scanf("%d", &choice) != 1) {
+            printf("Invalid input. Please enter a number: ");
+            while (getchar() != '\n');
+        }
 
         switch (choice) {
             case 1: _countUppercase(); break;
@@ -384,7 +399,10 @@ void menuLog() {
         printf(" " C_NUM "0." C_RST " Back\n");
         
         printf("Choice: ");
-        scanf("%d", &choice);
+        while (scanf("%d", &choice) != 1) {
+            printf("Invalid input. Please enter a number: ");
+            while (getchar() != '\n');
+        }
 
         switch (choice) {
             case 1: _initLogs(); break;

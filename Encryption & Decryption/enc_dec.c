@@ -431,7 +431,10 @@ void _encryptCesar(){
     int key;
     inputMessage(&m);
     printf("Enter the key (an integer): ");
-    scanf("%d",&key);
+    while (scanf("%d",&key) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     encryptCesar(&m,key);
     printf("The encrypted message is : ");
     displayMessage(m);
@@ -441,7 +444,10 @@ void _decryptCesar(){
     int key;
     inputMessage(&m);
     printf("Enter the key (an integer): ");
-    scanf("%d",&key);
+    while (scanf("%d",&key) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     decryptCesar(&m,key);
     printf("The decrypted message is : ");
     displayMessage(m);
@@ -451,7 +457,10 @@ void _encryptXOR(){
     int key;
     inputMessage(&m);
     printf("Enter the key (an integer): ");
-    scanf("%d",&key);
+    while (scanf("%d",&key) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     encryptXOR(&m,key);
     printf("The encrypted message is : ");
     displayMessage(m);
@@ -461,7 +470,10 @@ void _decryptXOR(){
     int key;
     inputMessage(&m);
     printf("Enter the key (an integer): ");
-    scanf("%d",&key);
+    while (scanf("%d",&key) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     decryptXOR(&m,key);
     printf("The decrypted message is : ");
     displayMessage(m);

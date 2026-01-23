@@ -30,7 +30,10 @@ void initLogs(struct Log logs[], int n){
         strcpy(logs[i].date,currentDate());
         strcpy(logs[i].time,currentDateTime());
         printf("Enter the code : ");
-        scanf(" %d",&logs[i].code);
+        while (scanf(" %d",&logs[i].code) != 1) {
+            printf("Invalid input. Please enter a number: ");
+            while (getchar() != '\n');
+        }
         
     }
     
@@ -392,7 +395,10 @@ void showTopErrors(struct Log logs[], int n){
 
 void _initLogs(){
     printf("Enter number of logs to initialize: ");
-    scanf("%d",&logCount);
+    while (scanf("%d",&logCount) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     initLogs(logs,logCount);
     printf("Logs initialized successfully.\n");
 }
@@ -404,7 +410,10 @@ void _addLog(){
     printf("Enter action: ");
     scanf("%s",action);
     printf("Enter code (0: info, 1: warning, 2: error): ");
-    scanf("%d",&code);
+    while (scanf("%d",&code) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     addLog(logs,logCount,user,action,code);
     logCount++;
     printf("Log added successfully.\n");
@@ -415,7 +424,10 @@ void _displayLogs(){
 void _searchLogsByUser(){
     char user[20];
     printf("Enter number of logs: ");
-    scanf("%d",&logCount);
+    while (scanf("%d",&logCount) != 1) {
+        printf("Invalid input. Please enter a number: ");
+        while (getchar() != '\n');
+    }
     printf("Enter username to search: ");
     scanf("%s",user);
     searchLogsByUser(logs,logCount,user);
