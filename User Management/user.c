@@ -10,20 +10,40 @@ struct User users[100];
 int userCount = 0;
 //the function is needed before
 int searchUser(struct User users[], int n, char name[]);
+int strongPassword(char pass[]);
+
 //1
 //function to initialize an array of users
 //input : the number of users 
 //output : an initialized list of users 
 void initUsers(struct User users[], int n){
-    int i;
+    int i,valid;
 
-    for(i=0;i<n;i++)
-    {
-        printf("Enter the user %d name :",i+1);
-        scanf("%s",users[i].name);
-        //we use %s to read strings
-        printf("Enter the user %d password :",i+1);
-        scanf("%s",users[i].password);
+    for(i=0;i<n;i++){
+
+        
+        valid=0;
+        do{ 
+            printf("Enter the user %d name :",i+1);
+            scanf(" %[^\n]", users[i].name);
+            if(searchUser(users,i,users[i].name)!=-1 || strchr(users[i].name, ' ') != NULL){
+                printf("username is already exist or contains a space, please enter ANOTHER NAME\n");
+            }else{
+                valid=1;
+            }
+        } while (!valid);
+        
+        valid=0;
+        do {
+            printf("Enter the user %d password (must be strong) :",i+1);
+            scanf(" %[^\n]", users[i].password);
+            if (!strongPassword(users[i].password) || strchr(users[i].password, ' ') != NULL) {
+                printf("Password is not strong enough or contains a space. It must be at least 8 characters long, contain at least one uppercase letter and one digit. Please try again.\n");
+            } else {
+                valid = 1;
+            }
+        } while (!valid);
+
         do{
             printf("Enter the user %d role (0 user , 1 admin) :",i+1);
             while (scanf("%d",&users[i].role) != 1) {
@@ -72,16 +92,29 @@ void displayUsers(struct User users[], int n){
 //output : add a new user to the list
 void addUser(struct User users[], int n){
     struct User new_user;
-    printf("Enter username: ");
-    scanf("%s", new_user.name);
-    while(searchUser(users,n,new_user.name)!=-1){
-        printf("username is already exist please enter ANOTHER NAME");
-    scanf("%s", new_user.name);
-    //we check if the username already exists
+    int valid;
+    valid=0;
+        do{ 
+            printf("Enter the username :");
+            scanf(" %[^\n]", new_user.name);
+            if(searchUser(users,n,new_user.name)!=-1 || strchr(new_user.name, ' ') != NULL){
+                printf("username is already exist or contains a space, please enter ANOTHER NAME\n");
+            }else{
+                valid=1;
+            }
+        } while (!valid);
 
-    }
-    printf("Enter password: ");
-    scanf("%s", new_user.password);
+        valid=0;
+        do {
+            printf("Enter the user password (must be strong) :");
+            scanf(" %[^\n]", new_user.password);
+            if (!strongPassword(new_user.password) || strchr(new_user.password, ' ') != NULL) {
+                printf("Password is not strong enough or contains a space. It must be at least 8 characters long, contain at least one uppercase letter and one digit. Please try again.\n");
+            } else {
+                valid = 1;
+            }
+        } while (!valid);
+        
     new_user.role = 0; 
     // default role is user
     new_user.state = 0;
@@ -145,19 +178,27 @@ int searchUser(struct User users[], int n, char name[]){
 //input : an array of users, the number of users and the name of the user
 //output : change the password of the user if found
 void changePassword(struct User users[], int n, char name[]){
-    int index;
+    int index,valid;
     char passwd[10];
     //ask for the current password
     index=searchUser(users,n,name);
     if (index!=-1)
     {
         printf("please enter your password");
-        scanf("%s",passwd);
+        scanf(" %[^\n]", passwd);
         if (strcmp(passwd,users[index].password)==0)
         {
-            printf("please enter your new paaword");
-            scanf("%s",users[index].password);
-            printf("password changed seccusfully");
+            valid=0;
+            do {
+                printf("Enter the new password (must be strong) :");
+                scanf(" %[^\n]", users[index].password);
+                if (!strongPassword(users[index].password) || strchr(users[index].password, ' ') != NULL) {
+                    printf("Password is not strong enough or contains a space. It must be at least 8 characters long, contain at least one uppercase letter and one digit. Please try again.\n");
+                } else {
+                    valid = 1;
+                }
+            } while (!valid);
+            printf("password changed successfully");
             //change the password
         }
         else{
@@ -438,8 +479,7 @@ void saveUsers(struct User users[], int n){
 //function to load users from a file
 //input : an array of users and the size
 //output : load the users from a file named "users.txt"
-void loadUsers(struct User users[], int n){
-    int i;
+void loadUsers(struct User users[], int *n){
     FILE *file;
     file = fopen("users.txt", "r");// open the file in read mode
     if (file == NULL) {
@@ -450,11 +490,9 @@ void loadUsers(struct User users[], int n){
         return;
         // exit the function if the file cannot be opened directely
     }
-    for ( i = 0; i < n; i++)
-    {
-        fscanf(file, "%s %s %d %d", users[i].name, users[i].password, &users[i].role, &users[i].state);
-        //fscanf reads formatted input from a file
-        //we read the name, password, role and state of the user
+    *n = 0;
+    while (fscanf(file, "%s %s %d %d", users[*n].name, users[*n].password, &users[*n].role, &users[*n].state) != EOF) {
+        (*n)++;
     }
     fclose(file);   
     //close the file after reading       
@@ -480,20 +518,20 @@ void _addUser(){
 void _deleteUser(){
     char name[20];
     printf("Enter the name of the user to delete: ");
-    scanf("%s",name);
+    scanf(" %[^\n]",name);
     deleteUser(users,userCount,name);
     userCount--;
 }
 void _changePassword(){
     char name[20];
     printf("Enter the name of the user to change password: ");
-    scanf("%s",name);
+    scanf(" %[^\n]",name);
     changePassword(users,userCount,name);
 }
 void _searchUser(){
     char name[20];
     printf("Enter the name to search:");
-    scanf("%s",name);
+    scanf(" %[^\n]",name);
     int index=searchUser(users,userCount,name);
     if (index!=-1)
     {
@@ -507,9 +545,9 @@ void _searchUser(){
 void _checkLogin(){
     char name[20],pass[20];
     printf("Enter username:");
-    scanf("%s",name);
+    scanf(" %[^\n]",name);
     printf("Enter password:");
-    scanf("%s",pass);
+    scanf(" %[^\n]",pass);
     if (checkLogin(users,userCount,name,pass))
     {
         printf("Login successful");
@@ -521,7 +559,7 @@ void _checkLogin(){
 void _strongPassword(){
     char pass[50];
     printf("Enter password to check:");
-    scanf("%s",pass);
+    scanf(" %[^\n]",pass);
     if (strongPassword(pass))
     {
         printf("Password is strong");
@@ -533,21 +571,21 @@ void _strongPassword(){
 void _blockUser(){
     char name[20];
     printf("Enter the name to block:");
-    scanf("%s",name);
+    scanf(" %[^\n]",name);
     blockUser(users,userCount,name);
 }
 
 void _unblockUser(){
     char name[20];
     printf("Enter the name to unblock:");
-    scanf("%s",name);
+    scanf(" %[^\n]",name);
     unblockUser(users,userCount,name);
 }
 void _changeRole(){
     int role;
     char name[20];
     printf("Enter the name to change role:");
-    scanf("%s",name);
+    scanf(" %[^\n]",name);
     printf("Enter the new role (0 user , 1 admin):");
     while (scanf("%d",&role) != 1) {
         printf("Invalid input. Please enter a number: ");
@@ -561,13 +599,13 @@ void _listAdmins(){
 void _stringLength(){
     char str[100];
     printf("Enter the string:");
-    scanf("%s",str);
+    scanf(" %[^\n]",str);
     printf("The length of the string is: %d",stringLength(str));
 }
 void _containsUppercase(){
     char str[100];
     printf("Enter the string:");
-    scanf("%s",str);
+    scanf(" %[^\n]",str);
     if (containsUppercase(str))
     {
         printf("The string contains uppercase letters");
@@ -579,7 +617,7 @@ void _containsUppercase(){
 void _containsLowercase(){
     char str[100];
     printf("Enter the string:");
-    scanf("%s",str);
+    scanf(" %[^\n]",str);
     if (containsLowercase(str))
     {
         printf("The string contains lowercase letters");
@@ -591,7 +629,7 @@ void _containsLowercase(){
 void _containsDigit(){
     char str[100];
     printf("Enter the string:");
-    scanf("%s",str);
+    scanf(" %[^\n]",str);
     if (containsDigit(str))
     {
         printf("The string contains digits");
@@ -603,7 +641,7 @@ void _containsDigit(){
 void _containsSymbol(){
     char str[100];
     printf("Enter the string:");
-    scanf("%s",str);
+    scanf(" %[^\n]",str);
     if (containsSymbol(str))
     {
         printf("The string contains symbols");
@@ -620,13 +658,8 @@ void _saveUsers(){
     printf("Users saved successfully to users.txt");
 }
 void _loadUsers(){
-    printf("Enter number of users to load:");
-    while (scanf("%d",&userCount) != 1) {
-        printf("Invalid input. Please enter a number: ");
-        while (getchar() != '\n');
-    }
-    loadUsers(users,userCount);
-    printf("Users loaded successfully from users.txt\n");
+    loadUsers(users,&userCount);
+    printf("%d Users loaded successfully from users.txt\n", userCount);
     displayUsers(users,userCount);
 }
 

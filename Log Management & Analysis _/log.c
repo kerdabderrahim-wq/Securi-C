@@ -19,14 +19,39 @@ char* currentDate();
 // outputs: none
 
 void initLogs(struct Log logs[], int n){
-    int i;
+    int i,valid;
+    //adding sanity check 
     for ( i = 0; i < n; i++)
     {   
         printf("Log Entry %d:\n", i + 1);
-        printf("Enter the username : ");
-        scanf("%s",logs[i].user);
-        printf("Enter the action : ");
-        scanf("%s",logs[i].action);
+        valid = 0;
+        do {
+            printf("Enter username: ");
+            scanf(" %[^\n]", logs[i].user);
+
+            // Check if the string contains a comma
+            if (strchr(logs[i].user, ',') != NULL) {
+                printf("Error: Input cannot contain a comma (,). Try again.\n");
+                valid = 0;
+            } else {
+                valid = 1;
+         }
+        } while (!valid);
+
+        valid = 0;
+        do {
+            printf("Enter action: ");
+            scanf(" %[^\n]", logs[i].action);
+
+            // Check if the string contains a comma
+            if (strchr(logs[i].action, ',') != NULL) {
+                printf("Error: Input cannot contain a comma (,). Try again.\n");
+                valid = 0;
+            } else {
+                valid = 1;
+            }
+        } while (!valid);
+
         strcpy(logs[i].date,currentDate());
         strcpy(logs[i].time,currentDateTime());
         printf("Enter the code : ");
@@ -97,15 +122,8 @@ void addLog(struct Log logs[], int n, char user[], char action[], int code){
 // outputs: none
  void displayLogs(struct Log logs[], int n){
     int i;
-    for ( i = 0; i<n; i++)
-    {
-        printf("Log Entry %d:\n", i + 1);
-        printf("User: %s\n",logs[i].user);
-        printf("Action: %s\n",logs[i].action);
-        printf("Date: %s\n",logs[i].date);
-        printf("Time: %s\n",logs[i].time);
-        printf("Code: %d\n",logs[i].code);
-        printf("===========================\n");
+    for ( i = 0; i<n; i++){
+        printf("log %d: %s %s %s %s %d\n",i+1,logs[i].date,logs[i].user,logs[i].action,logs[i].time,logs[i].code);
     }
     
  }
@@ -229,22 +247,19 @@ void displayLogStats(struct Log logs[], int n){
 void sortLogsByDate(struct Log logs[], int n){
     int i;
     struct Log  temp;
+    //date is of the form  Sat Jan 24 so we can compare it as string
     // declaration of a flag to check if the array is sorted
     int isSorted;
     isSorted=1;
-    for ( i = 0; i < n; i++)
-    {
-    if (logs[i].date>logs[i+1].date)
-    {
-        temp=logs[i];
-        logs[i]=logs[i+1];
-        logs[i+1]=temp;
-        isSorted=0;
+    for ( i = 0; i < n-1; i++){
+        if (strcmp(logs[i].date,logs[i+1].date)>0){
+            temp=logs[i];
+            logs[i]=logs[i+1];
+            logs[i+1]=temp;
+            isSorted=0;
+        }
     }
-    
-}
- if (isSorted==0)
-    {
+    if (isSorted==0){
         sortLogsByDate(logs,n);
     }
 }
@@ -260,10 +275,9 @@ void sortLogsByUser(struct Log logs[], int n){
     struct Log  temp;
     int isSorted;
     isSorted=1;
-    for ( i = 0; i < n; i++)
+    for ( i = 0; i < n-1; i++)
     {
-    if (strcmp(logs[i].user,logs[i+1].user)>0)
-    {
+    if (strcmp(logs[i].user,logs[i+1].user)>0){
         temp=logs[i];
         logs[i]=logs[i+1];
         logs[i+1]=temp;
@@ -340,7 +354,7 @@ void importLogsCSV(struct Log logs[], int *n){
         return;
     }
     char buffer[1024];
-    fgets(buffer, 1024, f); // Skip header
+    fgets(buffer, 1024, f); // skip header
     *n = 0;
     while(fgets(buffer, 1024, f)){
         sscanf(buffer, "%[^,],%[^,],%[^,],%[^,],%d", logs[*n].user, logs[*n].action, logs[*n].date, logs[*n].time, &logs[*n].code);
@@ -404,11 +418,34 @@ void _initLogs(){
 }
 void _addLog(){
     char user[20],action[50];
-    int code;
-    printf("Enter username: ");
-    scanf("%s",user);
-    printf("Enter action: ");
-    scanf("%s",action);
+    int code,valid;
+    valid=0;
+    do{
+        printf("Enter username: ");
+        scanf(" %[^\n]", user);
+
+        // Check if the string contains a comma
+        if (strchr(user, ',') != NULL) {
+            printf("Error: Input cannot contain a comma (,). Try again.\n");
+            valid = 0;
+        } else {
+            valid = 1;
+        }
+    } while (!valid);
+    valid=0;
+    do{
+        printf("Enter action: ");
+        scanf(" %[^\n]", action);
+
+        // Check if the string contains a comma
+        if (strchr(action, ',') != NULL) {
+            printf("Error: Input cannot contain a comma (,). Try again.\n");
+            valid = 0;
+        } else {
+            valid = 1;
+        }
+    } while (!valid);
+
     printf("Enter code (0: info, 1: warning, 2: error): ");
     while (scanf("%d",&code) != 1) {
         printf("Invalid input. Please enter a number: ");
@@ -493,7 +530,7 @@ void _exportLogsCSV(){
 }
 void _importLogsCSV(){
     importLogsCSV(logs, &logCount);
-    printf("Logs imported from logs.csv\n");
+    printf("%d Logs imported from logs.csv\n", logCount);
 }
 void _clearLogs(){
     clearLogs(logs,logCount);
