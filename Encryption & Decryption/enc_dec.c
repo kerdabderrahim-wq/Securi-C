@@ -58,7 +58,7 @@ void toUppercase(struct Message *m){
     int i;
     for (i = 0; i < m->length; i++) {
         if (isLowercase(m->text[i])) {
-            m->text[i] = m->text[i] - ('a' - 'A'); // we need to understande it //
+            m->text[i] = m->text[i] - ('a' - 'A'); 
         }
     }
 }
@@ -122,7 +122,6 @@ void encryptCesar(struct Message *m, int key){
         if (isUppercase(m->text[i])){
             //there is 26 letter so we use MOD 26
             m->text[i]=((m->text[i]-'A'+key)%26)+'A';
-            // to understande it //
             // m->text[i]-'A' : to get the index of the letter in the alphabet (0-25)
             //  +key : to shift the letter by the key
             // %26 : to wrap around if the index goes beyond 25
