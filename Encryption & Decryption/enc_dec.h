@@ -2,8 +2,9 @@
 #define ENC_DEC_H
 
 struct Message {
-    char text[512];
     int length;
+    char text[530];
+
 };
 
 void inputMessage(struct Message *m);

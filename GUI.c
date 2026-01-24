@@ -83,10 +83,10 @@ static void Gui_encrypt_cesar(GtkWidget *btn, gpointer data) {
     const char *txt = gtk_entry_get_text(GTK_ENTRY(p->entry_input1));
     const char *k = gtk_entry_get_text(GTK_ENTRY(p->entry_input2));
     struct Message m;
-    strncpy(m.text, txt, 511); m.text[511] = 0;
+    strncpy(m.text, txt, 511);
+    m.text[511] = 0;
     m.length = strlen(m.text);
     encryptCesar(&m, atoi(k));
-    printf("DEBUG: THE ENCRYPTED MESSAGE IS : %s\n",m.text);
     // atoi is to convert string to integer a function from stdlib.h
     gtk_label_set_text(GTK_LABEL(p->label_output), m.text);
     // label_output is the label where we display the result

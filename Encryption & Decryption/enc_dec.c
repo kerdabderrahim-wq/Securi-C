@@ -1,7 +1,9 @@
 #include <stdio.h>
+#include <string.h>
 struct Message{ 
-  char text[200]; 
   int length; 
+  char text[530]; 
+  
  };
 //1
 // description: function to input a message from the user
