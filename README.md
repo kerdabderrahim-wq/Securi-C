@@ -96,4 +96,4 @@ Launch the graphical dashboard:
 ```
 
 ---
-*Developed for the "Algorithmic & Data Structures" project at [University Name/Department].*
+*Developed for the "Algorithmic & Data Structures" project at NSCS, Algeria.*
