@@ -10,7 +10,7 @@ SRCS = main.c \
        "Log Management & Analysis _/log.c"
 
 # The name of your final program
-TARGET = security_app
+TARGET = CLI
 
 all:
 	$(CC) $(CFLAGS) $(SRCS) -o $(TARGET)

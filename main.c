@@ -134,6 +134,7 @@ int main() {
         printf(C_NUM "5." C_RST " Log Management and Monitoring\n");
         printf(C_NUM "6." C_RST " Help\n");
         printf(C_NUM "7." C_RST " About\n");
+        printf(C_NUM "8." C_RST " Launch GUI\n");
         printf(C_NUM "0." C_RST " Exit\n");
         printf("------------------------------------------------\n");
         printf("Enter your choice: ");
@@ -150,6 +151,7 @@ int main() {
             case 5: menuLog(); break;
             case 6: showHelp(); break;
             case 7: showAbout(); break;
+            case 8: system("GUI.exe"); break;
             case 0: 
                 printf("Exiting tool... SeeYA.\n"); 
                 exit(0);
