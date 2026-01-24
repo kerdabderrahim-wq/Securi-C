@@ -86,6 +86,7 @@ static void Gui_encrypt_cesar(GtkWidget *btn, gpointer data) {
     strncpy(m.text, txt, 511); m.text[511] = 0;
     m.length = strlen(m.text);
     encryptCesar(&m, atoi(k));
+    printf("DEBUG: THE ENCRYPTED MESSAGE IS : %s\n",m.text);
     // atoi is to convert string to integer a function from stdlib.h
     gtk_label_set_text(GTK_LABEL(p->label_output), m.text);
     // label_output is the label where we display the result
@@ -516,7 +517,7 @@ int main(int argc, char **argv) {
     GtkApplication *app;
     int status;
 
-    app = gtk_application_new("com.b3.securic", G_APPLICATION_DEFAULT_FLAGS);
+    app = gtk_application_new("com.b3.securicV2", G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
     status = g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
