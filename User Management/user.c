@@ -254,7 +254,7 @@ int strongPassword(char pass[])
         }
         i=i+1;
     }
-    return(length>8 && containDigit==1 && isuppercase==1);
+    return(length>7 && containDigit==1 && isuppercase==1);
     //if all the conditions are satisfied return 1 else return 0
     
 
