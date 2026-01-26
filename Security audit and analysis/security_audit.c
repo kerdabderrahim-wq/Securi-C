@@ -303,7 +303,7 @@ int checkEmailFormat(char email[]){
 
         
     }
-    if(arobaz<dot-1 && (i-dot)>2){
+    if(arobaz<dot-1 && (i-dot)>2 && (i-dot)<63){
         //this means that there is at least one character between @ and . and at least two characters after .
         return 1;
     }
