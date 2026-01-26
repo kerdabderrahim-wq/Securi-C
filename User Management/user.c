@@ -173,6 +173,7 @@ int searchUser(struct User users[], int n, char name[]){
 
     return -1;
 }
+
 //6
 //function to change a user's password
 //input : an array of users, the number of users and the name of the user
@@ -184,7 +185,7 @@ void changePassword(struct User users[], int n, char name[]){
     index=searchUser(users,n,name);
     if (index!=-1)
     {
-        printf("please enter your password");
+        printf("please enter your password: ");
         scanf(" %[^\n]", passwd);
         if (strcmp(passwd,users[index].password)==0)
         {
