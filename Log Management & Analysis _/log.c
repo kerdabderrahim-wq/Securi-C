@@ -353,13 +353,14 @@ void importLogsCSV(struct Log logs[], int *n){
         printf("Error opening file.\n");
         return;
     }
-    char buffer[1024];
-    fgets(buffer, 1024, f); // skip header
     *n = 0;
-    while(fgets(buffer, 1024, f)){
-        sscanf(buffer, "%[^,],%[^,],%[^,],%[^,],%d", logs[*n].user, logs[*n].action, logs[*n].date, logs[*n].time, &logs[*n].code);
+    // Skip header line
+    fscanf(f, "%*[^\n]\n");
+    while(fscanf(f, "%[^,],%[^,],%[^,],%[^,],%d\n", logs[*n].user, logs[*n].action, logs[*n].date, logs[*n].time, &logs[*n].code) != EOF){
         (*n)++;
     }
+
+
     fclose(f);
 }
 
