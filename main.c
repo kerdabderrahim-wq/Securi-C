@@ -441,7 +441,6 @@ void showHelp() {
     printf("Each library contains modules for cybersecurity tasks.\n");
     printf("Follow the on-screen prompts within each module.\n");
     printf("A shortcut for inputs is to enter number then the text if it is required.\n");
-    printf("Press any key to continue...\n");
     pauseConsole();
 }
 
