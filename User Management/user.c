@@ -295,7 +295,7 @@ void unblockUser(struct User users[], int n, char name[]){
     if (index!=-1)
     {   printf("User %s unblocked successfully\n", users[index].name);
         users[index].state=0; // change the state 
-    }
+     }
     
 }
 //11

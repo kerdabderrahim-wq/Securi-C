@@ -587,6 +587,7 @@ void _randomNumber(){
 }
 
 
+
 void inputArray(int T[],int *n){
     int i,temp;
     printf("Enter the number of  elements of array : ");

@@ -3,12 +3,12 @@
 #include <string.h>
 #include <time.h>
 struct Log{ 
-  char user[20]; 
-  char action[50]; 
-  char date[20]; 
-  char time[10]; 
+    char user[20]; 
+    char action[50]; 
+    char date[20]; 
+    char time[10]; 
   int code;  // 0 info, 1 warning, 2 error 
- };
+    };
 struct Log logs[100];
 int logCount = 0;
 char* currentDateTime();
@@ -28,21 +28,19 @@ void initLogs(struct Log logs[], int n){
         do {
             printf("Enter username: ");
             scanf(" %[^\n]", logs[i].user);
-
             // Check if the string contains a comma
             if (strchr(logs[i].user, ',') != NULL) {
                 printf("Error: Input cannot contain a comma (,). Try again.\n");
                 valid = 0;
             } else {
                 valid = 1;
-         }
+            }
         } while (!valid);
 
         valid = 0;
         do {
             printf("Enter action: ");
             scanf(" %[^\n]", logs[i].action);
-
             // Check if the string contains a comma
             if (strchr(logs[i].action, ',') != NULL) {
                 printf("Error: Input cannot contain a comma (,). Try again.\n");
@@ -173,6 +171,7 @@ void searchLogsByDate(struct Log logs[], int n, char date[]){
     }
     
 }
+
 //6
 //Description : Count error logs
 // inputs: logs array, number of logs
@@ -289,7 +288,10 @@ if (isSorted==0){
         sortLogsByUser(logs,n);
 }
 }
-
+//12
+//Description : Detect suspicious activity
+// inputs: logs array, number of logs, user
+// outputs: 1 if suspicious activity detected, 0 otherwise
 int detectSuspiciousActivity(struct Log logs[], int n, char user[]){
     // Implementation: e.g., multiple failed logins
     int count = 0;
@@ -301,14 +303,22 @@ int detectSuspiciousActivity(struct Log logs[], int n, char user[]){
     return count > 3; // Suspicious if more than 3 errors
 }
 
-
+//14
+//Description : Calculate error rate
+// inputs: logs array, number of logs
+// outputs: error rate as a float
 float errorRate(struct Log logs[], int n){
     if (n == 0){
         return 0.0;
+        // to avoid division by zero
     }
     return (float)countErrorLogs(logs,n)/n;
 
 }
+//17
+//Description : clear all logs
+// inputs: logs array, number of logs   
+// outputs: none
 // i do *100 in the second version of the function to get percentage
 // extra function to clear logs
 void clearLogs(struct Log logs[], int n){
@@ -322,7 +332,10 @@ void clearLogs(struct Log logs[], int n){
         logs[i].code=0;
     }
 }
-
+//13
+//Description : Daily connections report
+// inputs: logs array, number of logs
+// outputs: none
 void dailyConnections(struct Log logs[], int n){
     // Count logins per day (simplified: just print dates of logins)
     printf("Daily Connections:\n");
@@ -333,7 +346,10 @@ void dailyConnections(struct Log logs[], int n){
     }
 }
 
-
+//15
+//Description : Export logs to CSV
+// inputs: logs array, number of logs
+// outputs: none
 void exportLogsCSV(struct Log logs[], int n){
     FILE *f = fopen("logs.csv", "w");
     if(f == NULL){
@@ -346,7 +362,10 @@ void exportLogsCSV(struct Log logs[], int n){
     }
     fclose(f);
 }
-
+//16
+//Description : Import logs from CSV
+// inputs: logs array, pointer to number of logs
+// outputs: none
 void importLogsCSV(struct Log logs[], int *n){
     FILE *f = fopen("logs.csv", "r");
     if(f == NULL){
@@ -363,7 +382,10 @@ void importLogsCSV(struct Log logs[], int *n){
 
     fclose(f);
 }
-
+//18
+//Description : Display recent logs
+// inputs: logs array, number of logs
+// outputs: none
 void recentLogs(struct Log logs[], int n){
     // Display last 5 logs
     int start; 
@@ -372,7 +394,10 @@ void recentLogs(struct Log logs[], int n){
         printf("Log %d: %s %s %s\n", i+1, logs[i].date, logs[i].user, logs[i].action);
     }
 }
-
+//19
+//Description : Archive logs to a file
+// inputs: logs array, number of logs
+// outputs: none
 void archiveLogs(struct Log logs[], int n){
     // Save to archive file
     FILE *f = fopen("logs_archive.txt", "a");
@@ -387,7 +412,10 @@ void archiveLogs(struct Log logs[], int n){
     printf("Logs archived.\n");
 }
 
-
+//20
+//Description : Show top errors
+// inputs: logs array, number of logs
+// outputs: none
 void showTopErrors(struct Log logs[], int n){
     // Simplified: show users with most errors
     printf("Top Errors:\n");
