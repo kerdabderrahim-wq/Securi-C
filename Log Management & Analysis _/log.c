@@ -83,16 +83,17 @@ char* currentDateTime(){
     
 }
 //extra function for get current date
-char* currentDate(){
-    time_t now;
-    time(&now);
-    char* dt=ctime(&now);
-    //extract date part
-    static char date[11];
-    strncpy(date,dt,10);
-    date[10]='\0';
+char* currentDate() {
+    time_t now = time(NULL);
+    struct tm *t = localtime(&now);
+    
+    // "yyyy-mm-dd" is 10 characters + 1 for the null terminator '\0'
+    static char date[11]; 
+    
+    // %Y = 4-digit year, %m = month (01-12), %d = day (01-31)
+    strftime(date, sizeof(date), "%Y-%m-%d", t);
+    
     return date;
-
 }
 //2
 //Description : Add a new log entry
@@ -248,19 +249,26 @@ void sortLogsByDate(struct Log logs[], int n){
     struct Log  temp;
     //date is of the form  Sat Jan 24 so we can compare it as string
     // declaration of a flag to check if the array is sorted
+    //so we can use bubble sort without recursion
     int isSorted;
-    isSorted=1;
-    for ( i = 0; i < n-1; i++){
-        if (strcmp(logs[i].date,logs[i+1].date)>0){
-            temp=logs[i];
-            logs[i]=logs[i+1];
-            logs[i+1]=temp;
-            isSorted=0;
+    isSorted=0;
+    while (!isSorted){
+        isSorted=1;
+        for ( i = 0; i < n-1; i++)
+        {
+            if (strcmp(logs[i].date,logs[i+1].date)>0){
+                //if logs[i] date is greater than logs[i+1] date
+                temp=logs[i];
+                logs[i]=logs[i+1];
+                logs[i+1]=temp;
+                isSorted=0;
+            }
+            
         }
     }
-    if (isSorted==0){
-        sortLogsByDate(logs,n);
-    }
+    
+
+
 }
 
 
@@ -273,20 +281,20 @@ void sortLogsByUser(struct Log logs[], int n){
     int i;
     struct Log  temp;
     int isSorted;
-    isSorted=1;
-    for ( i = 0; i < n-1; i++)
-    {
-    if (strcmp(logs[i].user,logs[i+1].user)>0){
-        temp=logs[i];
-        logs[i]=logs[i+1];
-        logs[i+1]=temp;
-        isSorted=0;
+    isSorted=0;
+    while (!isSorted){
+        isSorted=1;
+        for ( i = 0; i < n-1; i++){
+            if (strcmp(logs[i].user,logs[i+1].user)>0){
+                //if logs[i] user is greater than logs[i+1] user
+                temp=logs[i];
+                logs[i]=logs[i+1];
+                logs[i+1]=temp;
+                isSorted=0;
+            }
+
+        }
     }
-    
-}
-if (isSorted==0){
-        sortLogsByUser(logs,n);
-}
 }
 //12
 //Description : Detect suspicious activity

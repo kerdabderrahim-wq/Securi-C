@@ -400,11 +400,10 @@ void multiplyMatrices(struct Matrix A, struct Matrix B, struct Matrix *C) {
     // A is (n x m), B is (m x p), Result C is (n x p)
     for (i = 0; i < A.n; i++) {           // Loop through rows of A
         for (j = 0; j < B.p; j++) {       // Loop through columns of B
+            //initialize C[i][j] to 0 before summing
+            C->data[i][j] = 0;
             
-            C->data[i][j] = 0;            // 1. Initialize the cell to 0
-            
-            for (k = 0; k < A.p; k++) {   // 2. The "inner" dimension loop
-                // 3. Add to the sum of products
+            for (k = 0; k < A.p; k++) {
                 C->data[i][j] += A.data[i][k] * B.data[k][j];
             }
         }
@@ -509,7 +508,12 @@ void _gcd(){
     int a,b;
     inputNumber(&a,"Enter the first number : ");
     inputNumber(&b,"Enter the second number : ");
-    outputNumber(gcd(abs(a),abs(b)),"The gcd is :");
+    if(a==0 && b==0){
+        printf("there is no gcd");
+    }else{
+        outputNumber(gcd(abs(a),abs(b)),"The gcd is :");
+    }
+    
 }
 
 void _lcm(){
@@ -707,7 +711,7 @@ void _multiplyMatrices(){
         printf("The result of multiplication is : \n");
         displayMatrix(C);
     }else{
-        printf("You cannot multiply these two matrices in that order : \n");
+        printf("You cannot multiply those two matrices in that order : \n");
     }
 }
 void _transposeMatrix(){
